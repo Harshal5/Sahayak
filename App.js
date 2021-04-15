@@ -117,8 +117,12 @@ const App = () => {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Details" component={DetailScreen} />
         <Stack.Screen name="RealTimeDetection" component={RealTimeDetection} />
-        <Stack.Screen name="TutorialMode" component={TutorialMode} />
-        <Stack.Screen name="CharacterCard" component={CharacterCard} />
+        <Stack.Screen name="TutorialMode" component={TutorialMode} options={{ title: "My Tutorial" }} />
+        <Stack.Screen
+          name="CharacterCard"
+          component={CharacterCard}
+          options={({ route }) => ({ title: `Learning: ${route.params.character}` })}
+        />
       </Stack.Navigator>
     </NavigationContainer>
 
