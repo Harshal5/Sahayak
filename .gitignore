@@ -1,0 +1,7 @@
+# dataset
+dataset/
+
+# trained model weights
+*.h5
+
+
