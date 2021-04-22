@@ -1,7 +1,6 @@
 # dataset
 dataset/
 
-# trained model weights
-*.h5
+.expo
 
-
+node_modules

@@ -38,9 +38,9 @@ def create_model():
 
 	head_model = base_model.output
 	head_model = GlobalAveragePooling2D()(head_model)
-	head_model = Flatten(name="flatten")(head_model)
+	# head_model = Flatten(name="flatten")(head_model)
 	head_model = Dense(128, activation="relu")(head_model)
-	head_model = Dropout(0.3)(head_model)
+	# head_model = Dropout(0.3)(head_model)
 	head_model = Dense(35, activation="softmax")(head_model)
 	# print(head_model.summary()
 	model = Model(inputs=base_model.input, outputs=head_model)
