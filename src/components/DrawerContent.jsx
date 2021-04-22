@@ -13,8 +13,10 @@ import {
 } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import PreferencesContext from '../context/PreferencesContext';
+import { useTheme } from '@react-navigation/native';
 
 const DrawerContent = ({ navigation, ...props }) => {
+  const theme = useTheme();
   const { toggleTheme, isThemeDark } = React.useContext(
     PreferencesContext,
   );
@@ -27,6 +29,7 @@ const DrawerContent = ({ navigation, ...props }) => {
               name="alpha-s-box-outline"
               size={40}
               style={{ paddingBottom: 8 }}
+              color={theme.colors.text}
             />
             <Headline>Sahayak</Headline>
           </View>
