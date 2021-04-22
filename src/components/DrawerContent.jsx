@@ -9,12 +9,10 @@ import {
   Text,
   TouchableRipple,
   Switch,
-  Title,
   Headline,
 } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import PreferencesContext from '../context/PreferencesContext';
-import { BorderlessButton } from 'react-native-gesture-handler';
 
 const DrawerContent = ({ navigation, ...props }) => {
   const { toggleTheme, isThemeDark } = React.useContext(
@@ -25,6 +23,11 @@ const DrawerContent = ({ navigation, ...props }) => {
       <View style={styles.drawerContent}>
         <Drawer.Section style={styles.drawerSection}>
           <View style={styles.userInfoSection}>
+            <MaterialCommunityIcons
+              name="alpha-s-box-outline"
+              size={40}
+              style={{ paddingBottom: 8 }}
+            />
             <Headline>Sahayak</Headline>
           </View>
         </Drawer.Section>
