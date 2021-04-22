@@ -8,6 +8,7 @@ import GestureRecognitionScreen from '../screens/GestureRecognitionScreen';
 import TextToGestureScreen from '../screens/TextToGestureScreen';
 import QuizScreen from '../screens/QuizScreen';
 import ContactScreen from '../screens/ContactScreen';
+import QuizGestureRecognitionScreen from '../screens/QuizGestureRecognitionScreen';
 
 const GestureRecognitionStack = createStackNavigator();
 const TextToGestureStack = createStackNavigator();
@@ -73,6 +74,10 @@ export const QuizStackScreen = () => {
       }
     >
       <QuizStack.Screen name="Quiz" component={QuizScreen} />
+      <QuizStack.Screen
+        name="Guess"
+        component={QuizGestureRecognitionScreen}
+      />
     </QuizStack.Navigator>
   );
 };
