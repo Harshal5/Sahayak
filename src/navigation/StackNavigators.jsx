@@ -9,11 +9,13 @@ import TextToGestureScreen from '../screens/TextToGestureScreen';
 import QuizScreen from '../screens/QuizScreen';
 import ContactScreen from '../screens/ReportScreen';
 import QuizGestureRecognitionScreen from '../screens/QuizGestureRecognitionScreen';
+import AboutUsScreen from '../screens/AboutUsScreen';
 
 const GestureRecognitionStack = createStackNavigator();
 const TextToGestureStack = createStackNavigator();
 const QuizStack = createStackNavigator();
 const ContactStack = createStackNavigator();
+const AboutStack = createStackNavigator();
 
 const defaultStackOptions = (theme, navigation) => ({
   headerStyle: {
@@ -90,7 +92,23 @@ export const ReportStackScreen = () => {
         defaultStackOptions(theme, props.navigation)
       }
     >
-      <ContactStack.Screen name="Report Bug" component={ContactScreen} />
+      <ContactStack.Screen
+        name="Report Bug"
+        component={ContactScreen}
+      />
     </ContactStack.Navigator>
+  );
+};
+
+export const AboutStackScreen = () => {
+  const theme = useTheme();
+  return (
+    <AboutStack.Navigator
+      screenOptions={(props) =>
+        defaultStackOptions(theme, props.navigation)
+      }
+    >
+      <AboutStack.Screen name="About Us" component={AboutUsScreen} />
+    </AboutStack.Navigator>
   );
 };
