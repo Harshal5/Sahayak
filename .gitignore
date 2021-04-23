@@ -135,8 +135,4 @@ docs/pages/versions/*/react-native/*.diff
 /ios/Pods
 package-lock.json
 # dataset
-dataset/
-
-.expo
-
-node_modules
+server/dataset/
