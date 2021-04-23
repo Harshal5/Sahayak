@@ -10,12 +10,14 @@ import QuizScreen from '../screens/QuizScreen';
 import ContactScreen from '../screens/ReportScreen';
 import QuizGestureRecognitionScreen from '../screens/QuizGestureRecognitionScreen';
 import AboutUsScreen from '../screens/AboutUsScreen';
+import OnBoardingScreen from '../screens/OnBoardingScreen';
 
 const GestureRecognitionStack = createStackNavigator();
 const TextToGestureStack = createStackNavigator();
 const QuizStack = createStackNavigator();
 const ContactStack = createStackNavigator();
 const AboutStack = createStackNavigator();
+const OnBoardingStack = createStackNavigator();
 
 const defaultStackOptions = (theme, navigation) => ({
   headerStyle: {
@@ -110,5 +112,21 @@ export const AboutStackScreen = () => {
     >
       <AboutStack.Screen name="About Us" component={AboutUsScreen} />
     </AboutStack.Navigator>
+  );
+};
+
+export const OnBoardingStackScreen = () => {
+  const theme = useTheme();
+  return (
+    <OnBoardingStack.Navigator
+      screenOptions={(props) =>
+        defaultStackOptions(theme, props.navigation)
+      }
+    >
+      <OnBoardingStack.Screen
+        name="onboarding"
+        component={OnBoardingScreen}
+      />
+    </OnBoardingStack.Navigator>
   );
 };

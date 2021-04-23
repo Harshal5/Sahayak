@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
@@ -14,6 +14,8 @@ import merge from 'deepmerge';
 import PreferencesContext from './context/PreferencesContext';
 import RootNavigator from './navigation/rootNavigator';
 
+import OnBoardingScreen from './screens/OnBoardingScreen';
+
 const CombinedDefaultTheme = merge(
   PaperDefaultTheme,
   NavigationDefaultTheme,
@@ -22,9 +24,11 @@ const CombinedDarkTheme = merge(PaperDarkTheme, NavigationDarkTheme);
 
 const Main = () => {
   const colorScheme = useColorScheme();
-  const [isThemeDark, setIsThemeDark] = React.useState(
+  const [isThemeDark, setIsThemeDark] = useState(
     colorScheme === 'dark',
   );
+
+  const [onBoarding, setOnBoarding] = useState(true);
 
   const theme = isThemeDark
     ? CombinedDarkTheme
@@ -101,7 +105,13 @@ const Main = () => {
   return (
     <PreferencesContext.Provider value={preferences}>
       <PaperProvider theme={theme}>
-        <RootNavigator />
+        {onBoarding ? (
+          <OnBoardingScreen
+            visibleOnboarding={() => setOnBoarding(false)}
+          />
+        ) : (
+          <RootNavigator />
+        )}
       </PaperProvider>
     </PreferencesContext.Provider>
   );
