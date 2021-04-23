@@ -76,7 +76,8 @@ export default function CameraScreen() {
             style={{
               width: 70,
               height: 70,
-              bottom: 10,
+              right: -100,
+              bottom: -530,
               borderRadius: 50,
               backgroundColor: '#fff',
               overflow: 'hidden',
