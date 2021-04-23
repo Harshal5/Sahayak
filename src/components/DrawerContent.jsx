@@ -38,7 +38,7 @@ const DrawerContent = ({ navigation, ...props }) => {
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
-                name="account-outline"
+                name="home-outline"
                 color={color}
                 size={size}
               />
@@ -59,6 +59,19 @@ const DrawerContent = ({ navigation, ...props }) => {
             label="Report Bug"
             onPress={() => {
               navigation.navigate('report');
+            }}
+          />
+          <DrawerItem
+            icon={({ color, size }) => (
+              <MaterialCommunityIcons
+                name="account-outline"
+                color={color}
+                size={size}
+              />
+            )}
+            label="About Us"
+            onPress={() => {
+              navigation.navigate('about');
             }}
           />
         </Drawer.Section>
