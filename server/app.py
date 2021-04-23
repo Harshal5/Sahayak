@@ -1,0 +1,138 @@
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
+from flask import Flask, jsonify, request
+
+app = Flask(__name__)
+
+import tensorflow as tf
+import numpy as np
+import cv2
+import matplotlib.pyplot as plt
+import shutil
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense,GlobalAveragePooling2D
+
+np.random.seed(1)
+
+def train_test_split():
+  path_root = "/gdrive/MyDrive/SE/data2"
+  for folder in os.listdir(path_root):
+    train_path = os.path.join('/gdrive/MyDrive/SE/dataset2/train', folder)
+    os.mkdir(train_path)
+    ori_path = os.path.join(path_root, folder)
+    images_list = os.listdir(ori_path)
+    print(images_list)
+    length = len(images_list)
+    print("length of original file:", length)
+    train_ratio = length // 10
+    count = 0
+    img_count = train_ratio * 8
+    print("count of file in train folder", img_count)
+    for img_file in images_list:
+      if count < img_count:
+        img_path = os.path.join(ori_path, img_file)
+        shutil.move(img_path, train_path)
+        count += 1
+      else:
+        break
+
+def view_image():
+  path = "./dataset_Large/train/1/1.jpg"
+  img = cv2.imread(path)
+  cv2_imshow(img)
+  print(img.shape)
+  print(img.max())
+
+def check_images():
+  path_root = "./dataset_Large"
+  train_path = os.path.join(path_root, "train")
+  test_path = os.path.join(path_root, "test")
+  for folder in os.listdir(train_path):
+    if (len(os.listdir(os.path.join(test_path, folder)))) != 240:
+      print(os.path.join(test_path, folder))
+      print(len(os.listdir(os.path.join(test_path, folder))))
+      print(os.path.join(train_path, folder))
+      print(len(os.listdir(os.path.join(train_path, folder))))
+
+data_gen_train = image.ImageDataGenerator(rescale=1./255)
+data_gen_valid = image.ImageDataGenerator(rescale=1./255)
+
+# train_generator = data_gen_train.flow_from_directory(
+# 	train_path,
+# 	target_size=(128, 128),
+# 	class_mode='categorical',
+#   batch_size=32
+# )
+
+# validation_generator = data_gen_valid.flow_from_directory(
+# 	test_path,
+# 	target_size=(128, 128),
+# 	class_mode='categorical',
+#   batch_size=32
+# )
+
+# list_families = list(train_generator.class_indices.keys())
+# print(list_families)
+
+num_classes = 35
+image_shape = (128, 128, 3)
+weights = "./vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5"
+base_model = tf.keras.applications.VGG16(weights=weights, input_shape=image_shape, include_top=False)
+base_model.trainable = True
+# print(base_model.summary())
+  
+head_model = base_model.output
+head_model = GlobalAveragePooling2D()(head_model)
+head_model = Dense(128, activation="relu")(head_model)
+head_model = Dense(35, activation="softmax")(head_model)
+
+model = Model(inputs=base_model.input, outputs=head_model)
+model.summary()
+
+model = tf.keras.models.load_model("./my_vggLargeDatasetModel.h5")
+# model_json = model.to_json()
+# with open("model.json", "w") as json_file:
+#   json_file.write(model_json)
+# score = model.evaluate(validation_generator)
+
+def plots():
+  plt.plot(history.history['accuracy'])
+  plt.plot(history.history['val_accuracy'])
+  plt.title('model accuracy')
+  plt.ylabel('accuracy')
+  plt.xlabel('epoch')
+  plt.legend(['train', 'test'], loc='upper left')
+  plt.show()
+
+  # summarize history for loss
+  plt.plot(history.history['loss'])
+  plt.plot(history.history['val_loss'])
+  plt.title('model loss')
+  plt.ylabel('loss')
+  plt.xlabel('epoch')
+  plt.legend(['train', 'test'], loc='upper left')
+  plt.show()
+
+@app.route("/api/", methods=['GET'])
+def predict():
+  path = "./L_resized_image.jpg"
+  # path = str(request.args.get('path'))
+  img = cv2.imread(path)
+  print(img.shape)
+  x = np.expand_dims(img, axis=0)
+  features = model.predict(x)
+  # print(features)
+  # print(np.argmax(features[0]))
+  return jsonify({'prediction' : str(np.argmax(features[0]))})
+
+@app.route("/", methods=['GET'])
+def hello():
+    return jsonify({'GET on homepage' : "Hello World"})
+
+
+if __name__ == '__main__':
+    app.run(threaded=True, port=5000)
