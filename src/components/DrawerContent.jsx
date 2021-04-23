@@ -51,14 +51,14 @@ const DrawerContent = ({ navigation, ...props }) => {
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
-                name="tune"
+                name="bug-outline"
                 color={color}
                 size={size}
               />
             )}
-            label="Contact Us"
+            label="Report Bug"
             onPress={() => {
-              navigation.navigate('contact-us');
+              navigation.navigate('report');
             }}
           />
         </Drawer.Section>

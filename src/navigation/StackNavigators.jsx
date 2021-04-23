@@ -7,7 +7,7 @@ import { ThemeProvider, useTheme } from '@react-navigation/native';
 import GestureRecognitionScreen from '../screens/GestureRecognitionScreen';
 import TextToGestureScreen from '../screens/TextToGestureScreen';
 import QuizScreen from '../screens/QuizScreen';
-import ContactScreen from '../screens/ContactScreen';
+import ContactScreen from '../screens/ReportScreen';
 import QuizGestureRecognitionScreen from '../screens/QuizGestureRecognitionScreen';
 
 const GestureRecognitionStack = createStackNavigator();
@@ -82,7 +82,7 @@ export const QuizStackScreen = () => {
   );
 };
 
-export const ContactStackScreen = () => {
+export const ReportStackScreen = () => {
   const theme = useTheme();
   return (
     <ContactStack.Navigator
@@ -90,7 +90,7 @@ export const ContactStackScreen = () => {
         defaultStackOptions(theme, props.navigation)
       }
     >
-      <ContactStack.Screen name="Contact" component={ContactScreen} />
+      <ContactStack.Screen name="Report Bug" component={ContactScreen} />
     </ContactStack.Navigator>
   );
 };

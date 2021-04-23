@@ -76,11 +76,17 @@ const QuizScreen = (props) => {
 };
 
 const styles = StyleSheet.create({
-  containerStyle: { backgroundColor: 'white', padding: 20 },
-  modal: {
-    flex: 1,
+  containerStyle: {
+    backgroundColor: 'white',
     padding: 20,
-    borderRadius: 15,
+    margin: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modal: {
+    // flex: 1,
+    // padding: 20,
+    // borderRadius: 15,
   },
   quiz: {
     flex: 1,

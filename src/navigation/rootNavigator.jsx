@@ -9,7 +9,7 @@ import { useTheme } from 'react-native-paper';
 
 import { HomeTabNavigator } from './TabNavigators';
 import DrawerContent from '../components/DrawerContent';
-import { ContactStackScreen } from './StackNavigators';
+import { ReportStackScreen } from './StackNavigators';
 
 const Drawer = createDrawerNavigator();
 
@@ -24,8 +24,8 @@ const RootNavigator = () => {
       >
         <Drawer.Screen name="home" component={HomeTabNavigator} />
         <Drawer.Screen
-          name="contact-us"
-          component={ContactStackScreen}
+          name="report"
+          component={ReportStackScreen}
         />
       </Drawer.Navigator>
     </NavigationContainer>
