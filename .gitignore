@@ -136,3 +136,7 @@ docs/pages/versions/*/react-native/*.diff
 package-lock.json
 # dataset
 server/dataset/
+server/images/*.png
+server/images/*.jpg
+server/images/*.jpeg
+server/__pycache__/

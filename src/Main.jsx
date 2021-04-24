@@ -105,13 +105,13 @@ const Main = () => {
   return (
     <PreferencesContext.Provider value={preferences}>
       <PaperProvider theme={theme}>
-        {onBoarding ? (
+        {/* {onBoarding ? (
           <OnBoardingScreen
             visibleOnboarding={() => setOnBoarding(false)}
           />
-        ) : (
-          <RootNavigator />
-        )}
+        ) : ( */}
+        <RootNavigator />
+        {/* )} */}
       </PaperProvider>
     </PreferencesContext.Provider>
   );

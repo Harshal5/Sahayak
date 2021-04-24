@@ -2,9 +2,19 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
-from flask import Flask, jsonify, request
+from flask import Flask, json, jsonify, request
+import os
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'images')
+ALLOWED_EXTENSIONS = set(['jpg', 'jpeg', 'png'])
+
+def allowed_file(filename):
+  return '.' in filename and \
+  filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 import tensorflow as tf
 import numpy as np
@@ -117,10 +127,26 @@ def plots():
   plt.legend(['train', 'test'], loc='upper left')
   plt.show()
 
-@app.route("/api/", methods=['GET'])
+@app.route("/api/test", methods=['GET'])
+def hello():
+    return jsonify({'GET on homepage' : "Hello World"})
+
+@app.route("/api/predict", methods=['POST'])
 def predict():
-  path = "./L_resized_image.jpg"
-  # path = str(request.args.get('path'))
+  #  path = "./L_resized_image.jpg"
+  if 'file' not in request.files:
+    print('not file in req')
+    return jsonify({'status': 200, 'data': 'No file in request'})
+
+  file = request.files['file']
+  if file.filename == '':
+    return jsonify({'status': 200, 'data': 'No Selected filename'})
+
+  if file and allowed_file(file.filename):
+    filename = secure_filename(file.filename)
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+  path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
   img = cv2.imread(path)
   print(img.shape)
   x = np.expand_dims(img, axis=0)
@@ -129,9 +155,6 @@ def predict():
   # print(np.argmax(features[0]))
   return jsonify({'prediction' : str(np.argmax(features[0]))})
 
-@app.route("/", methods=['GET'])
-def hello():
-    return jsonify({'GET on homepage' : "Hello World"})
 
 
 if __name__ == '__main__':

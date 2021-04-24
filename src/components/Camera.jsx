@@ -4,9 +4,14 @@ import {
   Text,
   View,
   TouchableOpacity,
+  Platform,
+  Image,
 } from 'react-native';
 import { Camera } from 'expo-camera';
-import { TouchableRipple } from 'react-native-paper';
+import { TouchableRipple, Button } from 'react-native-paper';
+import FormData from 'form-data';
+import * as ImagePicker from 'expo-image-picker';
+import API from '../services/api';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,70 +37,202 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function CameraScreen() {
-  let camera;
-  const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
+export default function ImagePickerExample() {
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     (async () => {
-      const { status } = await Camera.requestPermissionsAsync();
-      setHasPermission(status === 'granted');
+      if (Platform.OS !== 'web') {
+        const {
+          status,
+        } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          console.log(
+            'Sorry, we need camera roll permissions to make this work!',
+          );
+        }
+      }
     })();
   }, []);
 
-  if (hasPermission === null) {
-    return <View />;
-  }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
-  }
+  const pickImage = async () => {
+    // let result = await ImagePicker.launchCameraAsync({
+    //   allowsEditing: true,
+    //   aspect: [4, 3],
+    // });
+    //
+    // if (result.cancelled) {
+    //   return;
+    // }
+    //
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+
+    // ImagePicker saves the taken photo to disk and returns a local URI to it
+    let localUri = result.uri;
+    let filename = localUri.split('/').pop();
+
+    // Infer the type of the image
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    // Upload the image using the fetch and FormData APIs
+    let formData = new FormData();
+    // Assume "photo" is the name of the form field the server expects
+    formData.append('file', { uri: localUri, name: filename, type });
+
+    try {
+      const res = await API.post('/predict', formData, {
+        'content-type': 'multipart/form-data',
+      });
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      <Camera
-        style={styles.camera}
-        type={type}
-        ref={(r) => {
-          camera = r;
-        }}
-      >
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              setType(
-                type === Camera.Constants.Type.back
-                  ? Camera.Constants.Type.front
-                  : Camera.Constants.Type.back,
-              );
-            }}
-          >
-            <Text style={styles.text}> Flip </Text>
-          </TouchableOpacity>
-          <TouchableRipple
-            style={{
-              width: 70,
-              height: 70,
-              right: -100,
-              bottom: -530,
-              borderRadius: 50,
-              backgroundColor: '#fff',
-              overflow: 'hidden',
-            }}
-            centered={true}
-            rippleColor="rgba(0, 0, 0, .32)"
-            onPress={async () => {
-              const photo = await camera.takePictureAsync();
-              console.log(photo);
-            }}
-          >
-            <Text>Click</Text>
-          </TouchableRipple>
-        </View>
-      </Camera>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Button
+        style={{ backgroundColor: 'black' }}
+        title="Pick an image from camera roll"
+        onPress={pickImage}
+      />
+      {/* {image && (
+        <Image
+          source={{ uri: image }}
+          style={{ width: 200, height: 200 }}
+        />
+      )} */}
     </View>
   );
 }
+
+async function takeAndUploadPhotoAsync() {
+  // Display the camera to the user and wait for them to take a photo or to cancel
+  // the action
+  let result = await ImagePicker.launchCameraAsync({
+    allowsEditing: true,
+    aspect: [4, 3],
+  });
+
+  if (result.cancelled) {
+    return;
+  }
+
+  // ImagePicker saves the taken photo to disk and returns a local URI to it
+  let localUri = result.uri;
+  let filename = localUri.split('/').pop();
+
+  // Infer the type of the image
+  let match = /\.(\w+)$/.exec(filename);
+  let type = match ? `image/${match[1]}` : `image`;
+
+  // Upload the image using the fetch and FormData APIs
+  let formData = new FormData();
+  // Assume "photo" is the name of the form field the server expects
+  formData.append('photo', { uri: localUri, name: filename, type });
+
+  return await fetch(YOUR_SERVER_URL, {
+    method: 'POST',
+    body: formData,
+    headers: {
+      'content-type': 'multipart/form-data',
+    },
+  });
+}
+
+// export default function CameraScreen() {
+//   let camera;
+//   const [hasPermission, setHasPermission] = useState(null);
+//   const [type, setType] = useState(Camera.Constants.Type.back);
+//
+//   useEffect(() => {
+//     (async () => {
+//       const { status } = await Camera.requestPermissionsAsync();
+//       setHasPermission(status === 'granted');
+//     })();
+//   }, []);
+//
+//   if (hasPermission === null) {
+//     return <View />;
+//   }
+//   if (hasPermission === false) {
+//     return <Text>No access to camera</Text>;
+//   }
+//   return (
+//     <View style={styles.container}>
+//       <Camera
+//         style={styles.camera}
+//         type={type}
+//         ref={(r) => {
+//           camera = r;
+//         }}
+//       >
+//         <View style={styles.buttonContainer}>
+//           <TouchableOpacity
+//             style={styles.button}
+//             onPress={() => {
+//               setType(
+//                 type === Camera.Constants.Type.back
+//                   ? Camera.Constants.Type.front
+//                   : Camera.Constants.Type.back,
+//               );
+//             }}
+//           >
+//             <Text style={styles.text}> Flip </Text>
+//           </TouchableOpacity>
+//           <TouchableRipple
+//             style={{
+//               width: 70,
+//               height: 70,
+//               right: -100,
+//               bottom: -530,
+//               borderRadius: 50,
+//               backgroundColor: '#fff',
+//               overflow: 'hidden',
+//             }}
+//             centered
+//             rippleColor="rgba(0, 0, 0, .32)"
+//             onPress={async () => {
+//               try {
+//                 const photo = await camera.takePictureAsync();
+//                 console.log(photo);
+//                 const formData = new FormData();
+//                 formData.append('file', photo.uri);
+//                 console.log(formData);
+//                 const res = await API.post('/predict', formData, {
+//                   headers: { 'Content-Type': 'multipart/form-data' },
+//                 });
+//                 // const res = await API.get('/test');
+//                 console.log(res.data);
+//               } catch (error) {
+//                 console.log(error);
+//               }
+//             }}
+//           >
+//             <Text>Click</Text>
+//           </TouchableRipple>
+//         </View>
+//       </Camera>
+//     </View>
+//   );
+// }
 
 // import { StatusBar } from 'expo-status-bar';
 // import React from 'react';
