@@ -12,6 +12,7 @@ import {
   TouchableRipple,
   Button,
   ActivityIndicator,
+  Provider,
 } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native';
 import FormData from 'form-data';
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontSize: 18,
+    fontSize: 15,
     color: 'white',
   },
   loading: {
@@ -121,7 +122,7 @@ export default function CameraScreen({ predict }) {
   }
 
   return (
-    <View style={styles.container}>
+    <Provider style={styles.container}>
       {previewVisible && capturedImage ? (
         <CameraPreview photo={capturedImage} />
       ) : (
@@ -139,14 +140,14 @@ export default function CameraScreen({ predict }) {
               onPress={flipCamera}
               disabled={loading}
             >
-              <Text style={styles.text}> Flip </Text>
+              <Text style={styles.text}>Flip</Text>
             </TouchableOpacity>
             <TouchableRipple
               style={{
                 width: 70,
                 height: 70,
                 right: -100,
-                bottom: -530,
+                top: 530,
                 borderRadius: 50,
                 backgroundColor: '#fff',
                 overflow: 'hidden',
@@ -156,7 +157,7 @@ export default function CameraScreen({ predict }) {
               onPress={takePicture}
               disabled={loading}
             >
-              <Text>Click</Text>
+              <Text> </Text>
             </TouchableRipple>
           </View>
           {loading && (
@@ -166,6 +167,6 @@ export default function CameraScreen({ predict }) {
           )}
         </Camera>
       )}
-    </View>
+    </Provider>
   );
 }
