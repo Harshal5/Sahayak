@@ -10,15 +10,20 @@ import {
   Surface,
   TouchableRipple,
 } from 'react-native-paper';
+import LottieView from 'lottie-react-native';
+import { useTheme } from '@react-navigation/native';
 
 const QuizScreen = (props) => {
+  const { colors } = useTheme();
+  const letters = 'abcdefghijklmnopqrstuvwxyz0123456789';
   const [visible, setVisible] = React.useState(true);
+  // const [letter, setLetter] = React.useState(
+  //   letters.charAt(Math.random() * letters.length),
+  // );
   const [letter, setLetter] = React.useState('a');
 
-  const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const numerics = '0123456789';
-  const letters = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
   const generateRandom = () =>
     setLetter(letters.charAt(Math.random() * letters.length));
@@ -28,17 +33,33 @@ const QuizScreen = (props) => {
       <Portal>
         <Modal
           visible={visible}
-          contentContainerStyle={styles.containerStyle}
+          contentContainerStyle={{
+            ...styles.containerStyle,
+            backgroundColor: colors.card,
+          }}
           style={styles.modal}
         >
-          <Headline>Welcome To Quiz</Headline>
+          <Headline style={{ color: colors.text }}>
+            Welcome To Quiz
+          </Headline>
+          <View height={150} width={150}>
+            <LottieView
+              autoPlay
+              loop={false}
+              height={150}
+              width={150}
+              source={require('../../assets/animations/30856-quickest.json')}
+            />
+          </View>
           <Button mode="contained" onPress={hideModal}>
             Start
           </Button>
         </Modal>
       </Portal>
       <View style={styles.quiz}>
-        <Surface style={styles.surface}>
+        <Surface
+          style={{ ...styles.surface, backgroundColor: colors.card }}
+        >
           <MaterialCommunityIcons
             name={`${
               numerics.match(letter) ? 'numeric' : 'alpha'
@@ -47,6 +68,7 @@ const QuizScreen = (props) => {
             color="black"
             style={{
               alignSelf: 'center',
+              color: colors.text,
             }}
           />
           <View style={styles.buttonGroup}>
@@ -62,7 +84,12 @@ const QuizScreen = (props) => {
               <View>
                 <Button
                   mode="contained"
-                  onPress={() => props.navigation.navigate('Guess')}
+                  onPress={() => {
+                    props.navigation.navigate('Guess', {
+                      letter,
+                    });
+                    setTimeout(generateRandom, 1000);
+                  }}
                 >
                   Start
                 </Button>
@@ -77,7 +104,7 @@ const QuizScreen = (props) => {
 
 const styles = StyleSheet.create({
   containerStyle: {
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     padding: 20,
     margin: 10,
     borderRadius: 10,

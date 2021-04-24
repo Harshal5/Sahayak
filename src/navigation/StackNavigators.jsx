@@ -35,6 +35,10 @@ const defaultStackOptions = (theme, navigation) => ({
       icon="menu"
     />
   ),
+  transitionSpec: {
+    open: { animation: 'spring' },
+    close: { animation: 'spring' },
+  },
 });
 
 export const GestureRecognitionStackScreen = () => {

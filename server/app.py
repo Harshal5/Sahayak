@@ -146,14 +146,15 @@ def predict():
     filename = secure_filename(file.filename)
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-  path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-  img = cv2.imread(path)
-  print(img.shape)
-  x = np.expand_dims(img, axis=0)
-  features = model.predict(x)
+  #  path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+  #  img = cv2.imread(path)
+  #  print(img.shape)
+  #  x = np.expand_dims(img, axis=0)
+  #  features = model.predict(x)
   # print(features)
   # print(np.argmax(features[0]))
-  return jsonify({'prediction' : str(np.argmax(features[0]))})
+  #  return jsonify({'prediction' : str(np.argmax(features[0]))})
+  return jsonify({'prediction' : 'a'})
 
 
 
