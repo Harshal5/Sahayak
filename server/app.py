@@ -119,16 +119,18 @@ def plots():
 
 @app.route("/api/", methods=['GET'])
 def predict():
-  path = "./L_resized_image.jpg"
+  path = "./L.jpg"
+  original_image = cv2.imread(path)
+  resized_image = cv2.resize(original_image,(128, 128))
+  cv2.imwrite("Resized_Image", resized_image)
   # path = str(request.args.get('path'))
-  img = cv2.imread(path)
-  print(img.shape)
-  x = np.expand_dims(img, axis=0)
+  # img = cv2.imread(path)
+  print(resized_image.shape)
+  x = np.expand_dims(resized_image, axis=0)
   features = model.predict(x)
   # print(features)
   # print(np.argmax(features[0]))
-  return jsonify({'prediction' : str(np.argmax(features[0]))})
-
+  return jsonify({'prediction' : str(np.argmax(features[0]))})  
 @app.route("/", methods=['GET'])
 def hello():
     return jsonify({'GET on homepage' : "Hello World"})
