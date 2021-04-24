@@ -134,7 +134,8 @@ docs/pages/versions/*/react-native/*.diff
 # Pods
 /ios/Pods
 package-lock.json
-# dataset
+
+# server
 server/dataset/
 server/images/*.png
 server/images/*.jpg
