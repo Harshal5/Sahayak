@@ -161,10 +161,5 @@ def predict():
   return jsonify({'prediction' : str(np.argmax(features[0]))})  
   # return jsonify({'prediction' : 'a'})
 
-@app.route("/", methods=['GET'])
-def hello():
-    return jsonify({'GET on homepage' : "Hello World"})
-
-
 if __name__ == '__main__':
     app.run(threaded=True, port=5000)

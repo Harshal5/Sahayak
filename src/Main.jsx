@@ -46,72 +46,16 @@ const Main = () => {
     [toggleTheme, isThemeDark],
   );
 
-  //   return (
-  //     <PreferencesContext.Provider value={preferences}>
-  //       <PaperProvider theme={theme}>
-  //         <NavigationContainer theme={theme}>
-  //           <Drawer.Navigator
-  //             drawerContent={DrawerContent}
-  //             initialRouteName="Home"
-  //           >
-  //             <Drawer.Screen
-  //               name="Home"
-  //               component={HomeTabScreen}
-  //               options={{
-  //                 drawerLabel: 'Home',
-  //                 drawerIcon: ({ color }) => (
-  //                   <MaterialCommunityIcons
-  //                     name="home"
-  //                     color={color}
-  //                     size={22}
-  //                   />
-  //                 ),
-  //               }}
-  //             />
-  //             <Drawer.Screen
-  //               name="Contact Us"
-  //               component={ContactStackScreen}
-  //               options={{
-  //                 drawerLabel: 'Contact Us',
-  //                 drawerIcon: ({ color }) => (
-  //                   <MaterialCommunityIcons
-  //                     name="email"
-  //                     color={color}
-  //                     size={22}
-  //                   />
-  //                 ),
-  //               }}
-  //             />
-  //             <Drawer.Screen
-  //               name="Settings"
-  //               component={SettingsStackScreen}
-  //               options={{
-  //                 drawerLabel: 'Settings',
-  //                 drawerIcon: ({ color }) => (
-  //                   <MaterialCommunityIcons
-  //                     name="cog"
-  //                     color={color}
-  //                     size={22}
-  //                   />
-  //                 ),
-  //               }}
-  //             />
-  //           </Drawer.Navigator>
-  //         </NavigationContainer>
-  //       </PaperProvider>
-  //     </PreferencesContext.Provider>
-  //   );
-  // };
   return (
     <PreferencesContext.Provider value={preferences}>
       <PaperProvider theme={theme}>
-        {/* {onBoarding ? (
+        {onBoarding ? (
           <OnBoardingScreen
             visibleOnboarding={() => setOnBoarding(false)}
           />
-        ) : ( */}
-        <RootNavigator />
-        {/* )} */}
+        ) : (
+          <RootNavigator />
+        )}
       </PaperProvider>
     </PreferencesContext.Provider>
   );
