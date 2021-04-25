@@ -27,24 +27,28 @@ const CombinedDarkTheme = merge(PaperDarkTheme, NavigationDarkTheme);
 
 const DefaultTheme = {
   ...CombinedDefaultTheme,
-  roundness: 20,
+  roundness: 16,
   colors: {
     ...CombinedDefaultTheme.colors,
-    background: '#ffffff',
-    primary: '#007bff',
+    background: '#f4f5f7',
+    primary: '#5664d2',
     // card: ''
-    accent: '#201aa2dd',
-    text: '#6c757d',
+    accent: '#5961a3',
+    surface: '#ffffff',
+    text: '#172b4d',
   },
 };
 
 const DarkTheme = {
   ...CombinedDarkTheme,
-  roundness: 2,
+  roundness: 16,
   colors: {
     ...CombinedDarkTheme.colors,
-    primary: '#3498db',
-    accent: '#f1c40f',
+    background: '#12161d',
+    primary: '#62aaff',
+    accent: '#0d235c',
+    surface: '#1b222b',
+    text: '#aba398',
   },
 };
 

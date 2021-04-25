@@ -67,7 +67,7 @@ const GestureRecognitionScreen = ({ route, navigation }) => {
                 : 'checkbox-blank-outline'
             }
             size={120}
-            color="black"
+            color={colors.text}
             style={{
               alignSelf: 'center',
               paddingBottom: 10,

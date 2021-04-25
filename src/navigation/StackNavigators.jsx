@@ -1,5 +1,8 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  TransitionSpecs,
+} from '@react-navigation/stack';
 import GestureRecognitionScreen from '../screens/GestureRecognitionScreen';
 import TextToGestureScreen from '../screens/TextToGestureScreen';
 import QuizScreen from '../screens/QuizScreen';
@@ -40,6 +43,10 @@ const OnBoardingStack = createStackNavigator();
 
 const defaultStackOptions = {
   header: (props) => <Appbar {...props} />,
+  transitionSpec: {
+    open: TransitionSpecs.TransitionIOSSpec,
+    close: TransitionSpecs.TransitionIOSSpec,
+  },
 };
 
 export const GestureRecognitionStackScreen = () => (

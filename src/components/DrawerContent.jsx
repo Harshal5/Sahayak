@@ -21,7 +21,10 @@ const DrawerContent = ({ navigation, ...props }) => {
     PreferencesContext,
   );
   return (
-    <DrawerContentScrollView {...props}>
+    <DrawerContentScrollView
+      {...props}
+      style={{ backgroundColor: theme.colors.background }}
+    >
       <View style={styles.drawerContent}>
         <Drawer.Section style={styles.drawerSection}>
           <View style={styles.userInfoSection}>

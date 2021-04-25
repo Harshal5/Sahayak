@@ -2,6 +2,7 @@
 import React from 'react';
 import { Appbar, IconButton, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
 const Header = (props) => {
   const theme = useTheme();
@@ -30,6 +31,12 @@ const Header = (props) => {
         )}
         <Appbar.Content title={title} />
       </Appbar.Header>
+      <StatusBar
+        style={theme.dark ? 'light' : 'light'}
+        backgroundColor={
+          theme.dark ? theme.colors.surface : theme.colors.primary
+        }
+      />
     </SafeAreaView>
   );
 };
