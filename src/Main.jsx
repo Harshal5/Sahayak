@@ -79,13 +79,13 @@ const Main = () => {
       <SafeAreaProvider>
         <PaperProvider theme={theme}>
           <NavigationContainer theme={theme}>
-            {/* {onBoarding ? (
+            {onBoarding ? (
               <OnBoardingScreen
                 visibleOnboarding={() => setOnBoarding(false)}
               />
-            ) : ( */}
-            <RootNavigator />
-            {/* )} */}
+            ) : (
+              <RootNavigator />
+            )}
           </NavigationContainer>
         </PaperProvider>
       </SafeAreaProvider>
