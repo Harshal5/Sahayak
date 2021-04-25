@@ -147,15 +147,23 @@ def predict():
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
   #  path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-  #  img = cv2.imread(path)
-  #  print(img.shape)
-  #  x = np.expand_dims(img, axis=0)
-  #  features = model.predict(x)
+  path = "./L.jpg"
+  original_image = cv2.imread(path)
+  resized_image = cv2.resize(original_image,(128, 128))
+  cv2.imwrite("Resized_Image", resized_image)
+  # path = str(request.args.get('path'))
+  # img = cv2.imread(path)
+  print(resized_image.shape)
+  x = np.expand_dims(resized_image, axis=0)
+  features = model.predict(x)
   # print(features)
   # print(np.argmax(features[0]))
-  #  return jsonify({'prediction' : str(np.argmax(features[0]))})
-  return jsonify({'prediction' : 'a'})
+  return jsonify({'prediction' : str(np.argmax(features[0]))})  
+  # return jsonify({'prediction' : 'a'})
 
+@app.route("/", methods=['GET'])
+def hello():
+    return jsonify({'GET on homepage' : "Hello World"})
 
 
 if __name__ == '__main__':
