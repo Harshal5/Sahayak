@@ -4,8 +4,8 @@ import { View, StyleSheet } from 'react-native';
 import {
   Modal,
   Portal,
+  Snackbar,
   Button,
-  Provider,
   Headline,
   useTheme,
 } from 'react-native-paper';
@@ -22,7 +22,8 @@ const GestureRecognitionScreen = ({ route, navigation }) => {
 
   const predict = (p) => {
     setPrediction(p);
-    Speech.speak(letter === p ? 'Correct' : 'Wrong');
+    if (p === null) Speech.speak('Internet Connection Unavailable');
+    else Speech.speak(letter === p ? 'Correct' : 'Wrong');
   };
 
   const hideModal = () => {
@@ -31,7 +32,7 @@ const GestureRecognitionScreen = ({ route, navigation }) => {
   };
 
   return (
-    <Provider>
+    <View style={{ flex: 1 }}>
       <Portal>
         <Modal
           visible={prediction}
@@ -41,7 +42,7 @@ const GestureRecognitionScreen = ({ route, navigation }) => {
           }}
           style={styles.modal}
         >
-          <Headline style={{ color: colors.text }}>
+          <Headline>
             {letter === prediction ? 'Correct' : 'Wrong'}
           </Headline>
           <View style={{ height: 80, width: 80 }}>
@@ -70,7 +71,6 @@ const GestureRecognitionScreen = ({ route, navigation }) => {
             style={{
               alignSelf: 'center',
               paddingBottom: 10,
-              color: colors.text,
             }}
           />
           <Button mode="contained" onPress={hideModal}>
@@ -79,7 +79,23 @@ const GestureRecognitionScreen = ({ route, navigation }) => {
         </Modal>
       </Portal>
       <Camera predict={predict} />
-    </Provider>
+      <Snackbar
+        visible={prediction === null}
+        onDismiss={() => {
+          setPrediction('');
+          navigation.goBack();
+        }}
+        action={{
+          label: 'Okay',
+          onPress: () => {
+            setPrediction('');
+            navigation.goBack();
+          },
+        }}
+      >
+        Internet Connection Unavailable
+      </Snackbar>
+    </View>
   );
 };
 

@@ -146,11 +146,11 @@ def predict():
     filename = secure_filename(file.filename)
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-  #  path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-  path = "./L.jpg"
+  path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+  #  path = "./L.jpg"
   original_image = cv2.imread(path)
   resized_image = cv2.resize(original_image,(128, 128))
-  cv2.imwrite("Resized_Image", resized_image)
+  #  cv2.imwrite("Resized_Image", resized_image)
   # path = str(request.args.get('path'))
   # img = cv2.imread(path)
   print(resized_image.shape)
@@ -158,8 +158,8 @@ def predict():
   features = model.predict(x)
   # print(features)
   # print(np.argmax(features[0]))
-  return jsonify({'prediction' : str(np.argmax(features[0]))})  
-  # return jsonify({'prediction' : 'a'})
+  #  return jsonify({'prediction' : str(np.argmax(features[0]))})
+  return jsonify({'prediction' : 'a'})
 
 if __name__ == '__main__':
     app.run(threaded=True, port=5000)

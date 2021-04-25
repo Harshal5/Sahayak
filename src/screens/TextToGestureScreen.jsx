@@ -23,7 +23,7 @@ function TextToGestureScreen() {
   });
 
   return (
-    <Provider style={styles.container}>
+    <View style={styles.container}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -58,7 +58,7 @@ function TextToGestureScreen() {
           <StringImages text={text} />
         </View>
       )}
-    </Provider>
+    </View>
   );
 }
 
@@ -68,19 +68,10 @@ const styles = StyleSheet.create({
     // backgroundColor: '#ffe6e6',
   },
   container: {
-    // height: '100%',
+    flex: 1,
     // backgroundColor: '#f2f2f2',
   },
-  btn: {
-    width: '90%',
-    alignSelf: 'center',
-    borderRadius: 10,
-    shadowRadius: 2,
-    // backgroundColor: '#64e764',
-  },
   TextInput: {
-    width: '90%',
-    alignSelf: 'center',
     marginTop: 20,
   },
   divider: {

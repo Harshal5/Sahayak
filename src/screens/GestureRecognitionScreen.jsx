@@ -5,7 +5,7 @@ import {
   Modal,
   Portal,
   Button,
-  Provider,
+  Snackbar,
   Headline,
   useTheme,
 } from 'react-native-paper';
@@ -16,21 +16,24 @@ import Camera from '../components/Camera';
 
 const GestureRecognitionScreen = () => {
   const [prediction, setPrediction] = useState('');
+  const [visible, setVisible] = useState(false);
   const { colors } = useTheme();
   const numerics = '0123456789';
 
   const predict = (p) => {
-    setPrediction(p);
-    Speech.speak(p);
+    setPrediction(prediction + p);
+    if (p === null) Speech.speak('Internet Connection Unavailable');
+    else Speech.speak(p);
+    setVisible(true);
   };
 
-  const hideModal = () => setPrediction('');
+  const hideModal = () => setVisible(false);
 
   return (
-    <Provider>
+    <View style={{ flex: 1 }}>
       <Portal>
         <Modal
-          visible={prediction}
+          visible={visible}
           contentContainerStyle={{
             ...styles.containerStyle,
             backgroundColor: colors.card,
@@ -52,8 +55,10 @@ const GestureRecognitionScreen = () => {
             name={
               prediction
                 ? `${
-                    numerics.match(prediction) ? 'numeric' : 'alpha'
-                  }-${prediction}-box-outline`
+                    numerics.match(prediction[prediction.length - 1])
+                      ? 'numeric'
+                      : 'alpha'
+                  }-${prediction[prediction.length - 1]}-box-outline`
                 : 'checkbox-blank-outline'
             }
             size={120}
@@ -64,22 +69,73 @@ const GestureRecognitionScreen = () => {
               color: colors.text,
             }}
           />
-          <Button mode="contained" onPress={hideModal}>
-            Predict More
+          <Headline
+            style={{
+              textTransform: 'capitalize',
+            }}
+          >
+            {prediction}
+          </Headline>
+          <Button
+            mode="contained"
+            onPress={() => {
+              Speech.speak(prediction);
+            }}
+          >
+            Read Aloud
           </Button>
+          <View style={styles.btnGroup}>
+            <Button
+              mode="contained"
+              style={styles.btn}
+              onPress={() => {
+                hideModal();
+                setPrediction('');
+              }}
+            >
+              Clear
+            </Button>
+            <Button
+              mode="contained"
+              style={styles.btn}
+              onPress={hideModal}
+            >
+              Continue
+            </Button>
+          </View>
         </Modal>
       </Portal>
       <Camera predict={predict} />
-    </Provider>
+      <Snackbar
+        visible={prediction === null}
+        onDismiss={() => setPrediction('')}
+        action={{
+          label: 'Okay',
+          onPress: () => {
+            setPrediction('');
+          },
+        }}
+      >
+        Internet Connection Unavailable
+      </Snackbar>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   containerStyle: {
     padding: 20,
-    margin: 10,
+    marginVertical: 10,
     borderRadius: 10,
     alignItems: 'center',
+  },
+  btnGroup: {
+    paddingVertical: 10,
+    flexDirection: 'row',
+  },
+  btn: {
+    margin: 5,
+    width: 115,
   },
 });
 

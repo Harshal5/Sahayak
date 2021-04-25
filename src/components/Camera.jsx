@@ -77,9 +77,9 @@ export default function CameraScreen({ predict }) {
   const takePicture = async () => {
     try {
       setLoading(true);
-      const photo = await camera.takePictureAsync();
+      const photo = await camera.takePictureAsync({ quality: 1 });
+      // console.log(await camera.getAvailablePictureSizesAsync('4:3'));
       setCapturedImage(photo);
-      // setPreviewVisible(true);
       console.log(photo);
       const localUri = photo.uri;
       const filename = localUri.split('/').pop();
@@ -99,8 +99,9 @@ export default function CameraScreen({ predict }) {
       console.log(res.data);
       setLoading(false);
       predict(res.data.prediction);
-      setPreviewVisible(false);
     } catch (error) {
+      setLoading(false);
+      predict(null);
       console.log(error);
     }
   };

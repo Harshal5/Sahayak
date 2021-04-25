@@ -10,10 +10,10 @@ import {
   TouchableRipple,
   Switch,
   Headline,
+  useTheme,
 } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import PreferencesContext from '../context/PreferencesContext';
-import { useTheme } from '@react-navigation/native';
 
 const DrawerContent = ({ navigation, ...props }) => {
   const theme = useTheme();

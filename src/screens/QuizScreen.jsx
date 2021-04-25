@@ -5,18 +5,17 @@ import {
   Modal,
   Portal,
   Button,
-  Provider,
   Headline,
   Surface,
   TouchableRipple,
+  useTheme,
 } from 'react-native-paper';
 import LottieView from 'lottie-react-native';
-import { useTheme } from '@react-navigation/native';
 
 const QuizScreen = (props) => {
-  const { colors } = useTheme();
   const letters = 'abcdefghijklmnopqrstuvwxyz0123456789';
   const [visible, setVisible] = React.useState(true);
+  const { colors } = useTheme();
   // const [letter, setLetter] = React.useState(
   //   letters.charAt(Math.random() * letters.length),
   // );
@@ -29,7 +28,7 @@ const QuizScreen = (props) => {
     setLetter(letters.charAt(Math.random() * letters.length));
 
   return (
-    <Provider>
+    <View style={{ flex: 1 }}>
       <Portal>
         <Modal
           visible={visible}
@@ -39,13 +38,10 @@ const QuizScreen = (props) => {
           }}
           style={styles.modal}
         >
-          <Headline style={{ color: colors.text }}>
-            Welcome To Quiz
-          </Headline>
+          <Headline>Welcome To Quiz</Headline>
           <View height={150} width={150}>
             <LottieView
               autoPlay
-              loop={false}
               height={150}
               width={150}
               source={require('../../assets/animations/30856-quickest.json')}
@@ -57,18 +53,15 @@ const QuizScreen = (props) => {
         </Modal>
       </Portal>
       <View style={styles.quiz}>
-        <Surface
-          style={{ ...styles.surface, backgroundColor: colors.card }}
-        >
+        <Surface style={styles.surface}>
           <MaterialCommunityIcons
             name={`${
               numerics.match(letter) ? 'numeric' : 'alpha'
             }-${letter}-box-outline`}
             size={150}
-            color="black"
+            color={colors.text}
             style={{
               alignSelf: 'center',
-              color: colors.text,
             }}
           />
           <View style={styles.buttonGroup}>
@@ -98,7 +91,7 @@ const QuizScreen = (props) => {
           </View>
         </Surface>
       </View>
-    </Provider>
+    </View>
   );
 };
 
@@ -131,7 +124,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  button: { padding: 10 },
+  button: { padding: 10, width: 100 },
 });
 
 export default QuizScreen;

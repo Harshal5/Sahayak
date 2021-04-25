@@ -5,7 +5,6 @@ import {
   Subheading,
   Title,
   Paragraph,
-  Provider,
   useTheme,
 } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -18,54 +17,40 @@ const AboutUsScreen = () => {
   };
 
   return (
-    <Provider>
-      <View style={styles.surface}>
-        <MaterialCommunityIcons
-          name="alpha-s-box-outline"
-          size={150}
-          color={colors.text}
-        />
-        <Title>Sahayak</Title>
-        <Subheading style={{ color: colors.text }}>
-          An Indian Sign Language Translator
-        </Subheading>
-        <Paragraph
-          style={{ ...styles.paragraph, color: colors.text }}
-        >
-          Communication is one of the basic requirements for survival
-          in society. Deaf and dumb people communicate among
-          themselves using sign language but normal people find it
-          difficult to understand their language.
-        </Paragraph>
-        <Paragraph
-          style={{ ...styles.paragraph, color: colors.text }}
-        >
-          This project aims toward developing a platform that reduces
-          the communication barrier between normal and
-          hearing-impaired people.
-        </Paragraph>
-        <Paragraph
-          style={{ ...styles.paragraph, color: colors.text }}
-        >
-          Feel free to contribute. For major changes, please open an
-          issue first to discuss what you would like to change :
-        </Paragraph>
-        <Button
-          style={styles.button}
-          mode="outlined"
-          onPress={() => {
-            Linking.openURL('https://gitlab.com/kanhaiya38/sahayak/');
-          }}
-        >
-          GitLab &nbsp;
-          <MaterialCommunityIcons
-            name="open-in-new"
-            size={16}
-            color={colors.text}
-          />
-        </Button>
-      </View>
-    </Provider>
+    <View style={styles.surface}>
+      <MaterialCommunityIcons
+        name="alpha-s-box-outline"
+        size={150}
+        color={colors.text}
+      />
+      <Title>Sahayak</Title>
+      <Subheading>An Indian Sign Language Translator</Subheading>
+      <Paragraph style={styles.paragraph}>
+        Communication is one of the basic requirements for survival in
+        society. Deaf and dumb people communicate among themselves
+        using sign language but normal people find it difficult to
+        understand their language.
+      </Paragraph>
+      <Paragraph style={styles.paragraph}>
+        This project aims toward developing a platform that reduces
+        the communication barrier between normal and hearing-impaired
+        people.
+      </Paragraph>
+      <Paragraph style={styles.paragraph}>
+        Feel free to contribute. For major changes, please open an
+        issue first to discuss what you would like to change :
+      </Paragraph>
+      <Button
+        style={styles.button}
+        mode="outlined"
+        onPress={() => {
+          Linking.openURL('https://gitlab.com/kanhaiya38/sahayak/');
+        }}
+      >
+        GitLab &nbsp;
+        <MaterialCommunityIcons name="open-in-new" size={16} />
+      </Button>
+    </View>
   );
 };
 
