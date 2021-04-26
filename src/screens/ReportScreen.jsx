@@ -5,6 +5,7 @@ import { Field, Formik } from 'formik';
 import * as Yup from 'yup';
 import LottieView from 'lottie-react-native';
 import { FormTextInput } from '../components/FormInput';
+import API from '../services/api';
 
 const TextToGestureScreen = () => {
   const initialValues = { subject: '', description: '' };

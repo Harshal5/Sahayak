@@ -3,7 +3,7 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 from flask import Flask, json, jsonify, request
-import os
+import os, json
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = os.path.join(os.getcwd(), 'images')
@@ -134,32 +134,43 @@ def hello():
 @app.route("/api/predict", methods=['POST'])
 def predict():
   #  path = "./L_resized_image.jpg"
-  if 'file' not in request.files:
-    print('not file in req')
-    return jsonify({'status': 200, 'data': 'No file in request'})
+  # if 'file' not in request.files:
+  #   print('not file in req')
+  #   return jsonify({'status': 200, 'data': 'No file in request'})
 
-  file = request.files['file']
-  if file.filename == '':
-    return jsonify({'status': 200, 'data': 'No Selected filename'})
+  # file = request.files['file']
+  # if file.filename == '':
+  #   return jsonify({'status': 200, 'data': 'No Selected filename'})
 
-  if file and allowed_file(file.filename):
-    filename = secure_filename(file.filename)
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+  # if file and allowed_file(file.filename):
+  #   filename = secure_filename(file.filename)
+  #   file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-  path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-  #  path = "./L.jpg"
-  original_image = cv2.imread(path)
-  resized_image = cv2.resize(original_image,(128, 128))
-  #  cv2.imwrite("Resized_Image", resized_image)
-  # path = str(request.args.get('path'))
-  # img = cv2.imread(path)
-  print(resized_image.shape)
-  x = np.expand_dims(resized_image, axis=0)
-  features = model.predict(x)
+  # path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+  # #  path = "./L.jpg"
+  # original_image = cv2.imread(path)
+  # resized_image = cv2.resize(original_image,(128, 128))
+  # #  cv2.imwrite("Resized_Image", resized_image)
+  # # path = str(request.args.get('path'))
+  # # img = cv2.imread(path)
+  # print(resized_image.shape)
+  # x = np.expand_dims(resized_image, axis=0)
+  # features = model.predict(x)
   # print(features)
   # print(np.argmax(features[0]))
   #  return jsonify({'prediction' : str(np.argmax(features[0]))})
   return jsonify({'prediction' : 'a'})
 
+@app.route("/api/bug", methods=['POST'])
+def bug():
+    request_data = request.get_json()
+    bug ={
+      "subject" : request_data['subject'],
+      "description" : request_data['description']
+    }
+    out_file = open("./BugReports/Bug.json", "w")
+    json.dump(bug, out_file, indent = 4)
+    return jsonify(bug) 
+    
 if __name__ == '__main__':
     app.run(threaded=True, port=5000)
