@@ -161,5 +161,16 @@ def predict():
   #  return jsonify({'prediction' : str(np.argmax(features[0]))})
   return jsonify({'prediction' : 'a'})
 
+@app.route("/api/bug", methods=['POST'])
+def bug():
+    request_data = request.get_json()
+    bug ={
+      "subject" : request_data['subject'],
+      "description" : request_data['description']
+    }
+    out_file = open("./BugReports/Bug.json", "w")
+    json.dump(bug, out_file, indent = 4)
+    return jsonify(bug) 
+
 if __name__ == '__main__':
     app.run(threaded=True, port=5000)
