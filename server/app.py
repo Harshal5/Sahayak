@@ -134,28 +134,28 @@ def hello():
 @app.route("/api/predict", methods=['POST'])
 def predict():
   #  path = "./L_resized_image.jpg"
-  if 'file' not in request.files:
-    print('not file in req')
-    return jsonify({'status': 200, 'data': 'No file in request'})
+  # if 'file' not in request.files:
+  #   print('not file in req')
+  #   return jsonify({'status': 200, 'data': 'No file in request'})
 
-  file = request.files['file']
-  if file.filename == '':
-    return jsonify({'status': 200, 'data': 'No Selected filename'})
+  # file = request.files['file']
+  # if file.filename == '':
+  #   return jsonify({'status': 200, 'data': 'No Selected filename'})
 
-  if file and allowed_file(file.filename):
-    filename = secure_filename(file.filename)
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+  # if file and allowed_file(file.filename):
+  #   filename = secure_filename(file.filename)
+  #   file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-  path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-  #  path = "./L.jpg"
-  original_image = cv2.imread(path)
-  resized_image = cv2.resize(original_image,(128, 128))
-  #  cv2.imwrite("Resized_Image", resized_image)
-  # path = str(request.args.get('path'))
-  # img = cv2.imread(path)
-  print(resized_image.shape)
-  x = np.expand_dims(resized_image, axis=0)
-  features = model.predict(x)
+  # path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+  # #  path = "./L.jpg"
+  # original_image = cv2.imread(path)
+  # resized_image = cv2.resize(original_image,(128, 128))
+  # #  cv2.imwrite("Resized_Image", resized_image)
+  # # path = str(request.args.get('path'))
+  # # img = cv2.imread(path)
+  # print(resized_image.shape)
+  # x = np.expand_dims(resized_image, axis=0)
+  # features = model.predict(x)
   # print(features)
   # print(np.argmax(features[0]))
   #  return jsonify({'prediction' : str(np.argmax(features[0]))})

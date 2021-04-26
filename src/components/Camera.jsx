@@ -130,7 +130,6 @@ export default function CameraScreen({ predict }) {
         <Camera
           style={styles.camera}
           type={cameraType}
-          useCamera2Api
           ref={(r) => {
             camera = r;
           }}
