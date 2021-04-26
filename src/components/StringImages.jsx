@@ -18,6 +18,7 @@ import {
   Avatar,
   Card,
   Paragraph,
+  Surface,
 } from 'react-native-paper';
 
 const getImage = (char) => {
@@ -198,7 +199,7 @@ const styles2 = StyleSheet.create({
     margin: 20,
     height: 200,
     width: 200,
-    borderRadius: 40,
+    borderRadius: 30,
   },
 });
 
@@ -213,35 +214,40 @@ const CarouselCards = (props) => {
   const [index, setIndex] = useState(0);
 
   return (
-    <View style={styles.CarouselCardsContainer}>
-      <Carousel
-        layout="tinder"
-        // layoutCardOffset={9}
-        ref={isCarousel}
-        data={props.data}
-        renderItem={CarouselCardItem}
-        sliderWidth={SLIDER_WIDTH}
-        itemWidth={ITEM_WIDTH}
-        inactiveSlideShift={0}
-        onSnapToItem={(index) => setIndex(index)}
-        useScrollView={true}
-      />
-      <Pagination
-        dotsLength={props.data.length}
-        activeDotIndex={index}
-        carouselRef={isCarousel}
-        dotStyle={{
-          width: 10,
-          height: 10,
-          borderRadius: 5,
-          marginHorizontal: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.92)',
-          // backgroundColor: '#ffbf80'
-        }}
-        inactiveDotOpacity={0.4}
-        inactiveDotScale={0.6}
-        tappableDots={true}
-      />
+    <View style={styles.container}>
+      <View style={styles.CarouselCardsContainer}>
+          <Carousel
+            layout="tinder"
+            layoutCardOffset={9}
+            ref={isCarousel}
+            data={props.data}
+            renderItem={CarouselCardItem}
+            sliderWidth={SLIDER_WIDTH}
+            itemWidth={ITEM_WIDTH}
+            inactiveSlideShift={0}
+            onSnapToItem={(index) => setIndex(index)}
+            useScrollView={true}
+          />
+        </View>
+      <View>
+        <Pagination
+          dotsLength={props.data.length}
+          activeDotIndex={index}
+          carouselRef={isCarousel}
+          dotStyle={{
+            width: 10,
+            height: 10,
+            borderRadius: 5,
+            marginHorizontal: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.92)',
+            // backgroundColor: '#ffbf80'
+          }}
+          inactiveDotOpacity={0.4}
+          inactiveDotScale={0.6}
+          tappableDots={true}
+        />
+      </View>
+
     </View>
   );
 };
@@ -260,11 +266,15 @@ const StringImages = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 400,
-    paddingVertical: 20,
+    height: '100%',
   },
   CarouselCardsContainer: {
-    height: 400,
+    marginTop: 5,
+    // paddingTop: 10,
+    height: '80%',
+  },
+  pagination:{
+    backgroundColor: '#8d5524'
   },
 });
 

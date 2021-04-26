@@ -1,27 +1,37 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { Feather as Icon } from '@expo/vector-icons';
+import { View, Text, StyleSheet } from 'react-native';
 
-const Page = ({ backgroundColor, iconName, title }) => {
+const Page = ({ title, info1, info2 }) => {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor,
-      }}
-    >
-      <Icon name={iconName} size={172} color="white" />
-      <View style={{ marginTop: 16 }}>
-        <Text
-          style={{ fontSize: 24, fontWeight: 'bold', color: 'white' }}
-        >
-          {title}
-        </Text>
-      </View>
+    <View>
+      <Text style={styles.text1}>{title}</Text>
+      <Text style={styles.text2}>{info1}</Text>
+      <Text style={styles.text3}>{info2}</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  text1: {
+    justifyContent: 'center',
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#555555',
+    textAlign: 'center',
+  },
+  text2: {
+    marginTop: 75,
+    fontSize: 20,
+    color: '#6D6D64',
+    textAlign: 'center',
+  },
+  text3: {
+    paddingTop: 18,
+    fontSize: 20,
+    padding: 10,
+    color: '#6D6D64',
+    textAlign: 'center',
+  },
+});
 
 export default Page;
