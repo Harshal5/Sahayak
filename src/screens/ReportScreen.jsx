@@ -4,6 +4,7 @@ import { Button } from 'react-native-paper';
 import { Field, Formik } from 'formik';
 import * as Yup from 'yup';
 import { FormTextInput } from '../components/FormInput';
+import API from '../services/api';
 
 const TextToGestureScreen = () => {
   const initialValues = { subject: '', description: '' };
@@ -16,7 +17,15 @@ const TextToGestureScreen = () => {
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values) => console.log(values)}
+      onSubmit={async (values) => {
+        // console.log(values);
+        try {
+          const res = await API.post('/bug', values);
+          console.log(res);
+        } catch (error) {
+          console.log(error);
+        }
+      }}
     >
       {({ handleSubmit }) => (
         <View style={{ margin: 10, padding: 10 }}>
