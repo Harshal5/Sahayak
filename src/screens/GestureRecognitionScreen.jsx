@@ -17,14 +17,19 @@ import Camera from '../components/Camera';
 const GestureRecognitionScreen = () => {
   const [prediction, setPrediction] = useState('');
   const [visible, setVisible] = useState(false);
+  const [snackbar, setSnackbar] = useState(false);
   const { colors } = useTheme();
   const numerics = '0123456789';
 
   const predict = (p) => {
-    setPrediction(prediction + p);
-    if (p === null) Speech.speak('Internet Connection Unavailable');
-    else Speech.speak(p);
-    setVisible(true);
+    if (p === null) {
+      Speech.speak('Internet Connection Unavailable');
+      setSnackbar(true);
+    } else {
+      setPrediction(prediction + p);
+      Speech.speak(p);
+      setVisible(true);
+    }
   };
 
   const hideModal = () => setVisible(false);
@@ -107,13 +112,11 @@ const GestureRecognitionScreen = () => {
       </Portal>
       <Camera predict={predict} />
       <Snackbar
-        visible={prediction === null}
-        onDismiss={() => setPrediction('')}
+        visible={snackbar}
+        onDismiss={() => setSnackbar(false)}
         action={{
           label: 'Okay',
-          onPress: () => {
-            setPrediction('');
-          },
+          onPress: () => {},
         }}
       >
         Internet Connection Unavailable
