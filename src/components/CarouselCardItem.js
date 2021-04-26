@@ -11,20 +11,16 @@ const CarouselCardItem = ({ item, index }) => {
         <View style={styles.container} key={index}>
             <Surface style={styles.surface}> 
                 {item.imageComponent}
-
-                <View style={styles.textBox}>
-                    {/* <Text style={styles.header}>{item.char}</Text> */}
                     <Button mode="contained" style={styles.btn} >
                         {item.char}
                     </Button>
-                </View>
             </Surface>
         </View>
     )
 }
 const styles = StyleSheet.create({
     container: {
-        marginBottom: 50,
+        marginBottom: '10%',
     },
     surface:{
         flexDirection: 'column',
@@ -64,7 +60,6 @@ const styles = StyleSheet.create({
         width: '75%',
         margin: 5,
         padding: 5,
-
     },
 
 

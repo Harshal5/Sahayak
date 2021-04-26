@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
   },
   cardContainer:{
     flex: 1,
+    // backgroundColor: '#8d5524',
   } ,
 });
 

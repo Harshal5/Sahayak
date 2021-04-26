@@ -270,8 +270,8 @@ const styles = StyleSheet.create({
   },
   CarouselCardsContainer: {
     marginTop: 5,
-    paddingTop: 10,
-    height: '60%',
+    // paddingTop: 10,
+    height: '80%',
   },
   pagination:{
     backgroundColor: '#8d5524'
