@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button, Divider, Provider } from 'react-native-paper';
+import { Button, Divider, Provider, Surface } from 'react-native-paper';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 
@@ -10,7 +10,7 @@ import StringImages from '../components/StringImages';
 function TextToGestureScreen() {
   const [text, setText] = React.useState('');
   // Make this false
-  const [showImages, setShowImages] = React.useState(true);
+  const [showImages, setShowImages] = React.useState(false);
   const initialValues = { text: '' };
 
   const validationSchema = Yup.object({
@@ -24,17 +24,20 @@ function TextToGestureScreen() {
 
   return (
     <View style={styles.container}>
+      
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          console.log('values:', values.text);
-          setText(values.text);
+          // console.log('values:', values.text);
+          // let str = values.text.toLowerCase();
+          setText(values.text.toLowerCase());
           setShowImages(true);
         }}
       >
         {({ handleSubmit }) => (
-          <View style={{ margin: 10, padding: 10 }}>
+          <View style={styles.form}>
+            
             <Field
               name="text"
               label="Text"
@@ -54,33 +57,40 @@ function TextToGestureScreen() {
       </Formik>
       <Divider style={styles.divider} />
       {showImages && (
-        <View>
-          <StringImages text={text} />
+        <View style={styles.cardContainer}> 
+          {/* <Surface style={styles.surface}> */}
+            <StringImages text={text} />
+          {/* </Surface> */}
         </View>
       )}
+      
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   StringImages: {
-    // height: 400,
-    // backgroundColor: '#ffe6e6',
+  },
+  form:{
+    margin: 10, 
+    padding: 5,
   },
   container: {
     flex: 1,
-    // backgroundColor: '#f2f2f2',
+    marginTop: 20,
+    elevation: 4,
+  },
+  surface: {
+    elevation: 4,
+    height: '100%',
   },
   TextInput: {
-    marginTop: 20,
   },
   divider: {
-    // color: 'black',
-    margin: 5,
-
-    // backgroundColor: '#64e764',
-    // fontSize: 100,
   },
+  cardContainer:{
+    flex: 1,
+  } ,
 });
 
 export default TextToGestureScreen;

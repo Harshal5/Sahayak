@@ -13,6 +13,7 @@ import {
   useTheme,
 } from 'react-native-paper';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import * as MailComposer from 'expo-mail-composer';
 import PreferencesContext from '../context/PreferencesContext';
 
 const DrawerContent = ({ navigation, ...props }) => {
@@ -49,6 +50,25 @@ const DrawerContent = ({ navigation, ...props }) => {
             label="Home"
             onPress={() => {
               navigation.navigate('home');
+            }}
+          />
+          <DrawerItem
+            icon={({ color, size }) => (
+              <MaterialCommunityIcons
+                name="email-outline"
+                color={color}
+                size={size}
+              />
+            )}
+            label="Mail Us"
+            onPress={async () => {
+              try {
+                await MailComposer.composeAsync({
+                  recipients: ['teamsahayak@maildrop.cc'], // string or array of email addresses
+                });
+              } catch (err) {
+                console.log(err);
+              }
             }}
           />
           <DrawerItem
