@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
   },
-  button: { padding: 10, width: 100 },
+  button: { padding: 10, width: 140 },
 });
 
 export default QuizScreen;
