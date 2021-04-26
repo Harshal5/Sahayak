@@ -29,7 +29,15 @@ const TextToGestureScreen = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={async (values) => {
+          // console.log(values);
+          try {
+            const res = await API.post('/bug', values);
+            console.log(res);
+          } catch (error) {
+            console.log(error);
+          }
+        }}
       >
         {({ handleSubmit }) => (
           <View style={{ margin: 10, padding: 10 }}>
