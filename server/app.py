@@ -159,7 +159,11 @@ def predict():
   # print(features)
   # print(np.argmax(features[0]))
   #  return jsonify({'prediction' : str(np.argmax(features[0]))})
-  return jsonify({'prediction' : 'a'})
+  output = {
+    'prediction' : 'a'
+  }
+  print(output)
+  return jsonify(output)
 
 @app.route("/api/bug", methods=['POST'])
 def bug():
@@ -171,6 +175,6 @@ def bug():
     out_file = open("./BugReports/Bug.json", "w")
     json.dump(bug, out_file, indent = 4)
     return jsonify(bug) 
-    
+
 if __name__ == '__main__':
     app.run(threaded=True, port=5000)

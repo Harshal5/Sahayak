@@ -80,7 +80,7 @@ export default function CameraScreen({ predict }) {
       const photo = await camera.takePictureAsync({ quality: 1 });
       // console.log(await camera.getAvailablePictureSizesAsync('4:3'));
       setCapturedImage(photo);
-      console.log(photo);
+      // console.log(photo);
       const localUri = photo.uri;
       const filename = localUri.split('/').pop();
 
@@ -96,7 +96,7 @@ export default function CameraScreen({ predict }) {
       const res = await API.post('/predict', formData, {
         'content-type': 'multipart/form-data',
       });
-      console.log(res.data);
+      // console.log(res.data);
       setLoading(false);
       predict(res.data.prediction);
     } catch (error) {

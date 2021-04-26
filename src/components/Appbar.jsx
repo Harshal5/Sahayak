@@ -6,7 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 
 const Header = (props) => {
   const theme = useTheme();
-  console.log(props);
+  // console.log(props);
   const { scene, previous, navigation } = props;
   const { options } = scene.descriptor;
   const title =
