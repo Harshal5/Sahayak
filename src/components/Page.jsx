@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Text } from 'react-native-paper';
 
 const Page = ({ title, info1, info2 }) => {
   return (
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
   text1: {
     justifyContent: 'center',
     fontSize: 28,
-    fontWeight: 'bold',
+    fontFamily: 'Montserrat-Bold',
     color: '#555555',
     textAlign: 'center',
   },

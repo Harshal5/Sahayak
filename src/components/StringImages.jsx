@@ -184,6 +184,98 @@ const getImage = (char) => {
           source={require('../../assets/img/m.png')}
         />
       );
+    case '0':
+      return (
+        <Image
+          style={styles2.img}
+          source={require('../../assets/img/0.png')}
+        />
+      );
+    case '3':
+      return (
+        <Image
+          style={styles2.img}
+          source={require('../../assets/img/3.png')}
+        />
+      );
+    case '6':
+      return (
+        <Image
+          style={styles2.img}
+          source={require('../../assets/img/6.png')}
+        />
+      );
+    case '8':
+      return (
+        <Image
+          style={styles2.img}
+          source={require('../../assets/img/8.png')}
+        />
+      );
+    case 'e':
+      return (
+        <Image
+          style={styles2.img}
+          source={require('../../assets/img/e.jpg')}
+        />
+      );
+    case 'h':
+      return (
+        <Image
+          style={styles2.img}
+          source={require('../../assets/img/h.jpg')}
+        />
+      );
+    case 'j':
+      return (
+        <Image
+          style={styles2.img}
+          source={require('../../assets/img/j.jpg')}
+        />
+      );
+    case 'k':
+      return (
+        <Image
+          style={styles2.img}
+          source={require('../../assets/img/k.jpg')}
+        />
+      );
+
+    case 'l':
+      return (
+        <Image
+          style={styles2.img}
+          source={require('../../assets/img/l.jpg')}
+        />
+      );
+    case 'r':
+      return (
+        <Image
+          style={styles2.img}
+          source={require('../../assets/img/r.jpg')}
+        />
+      );
+    case 's':
+      return (
+        <Image
+          style={styles2.img}
+          source={require('../../assets/img/s.jpg')}
+        />
+      );
+    case 'u':
+      return (
+        <Image
+          style={styles2.img}
+          source={require('../../assets/img/u.jpg')}
+        />
+      );
+    case 'v':
+      return (
+        <Image
+          style={styles2.img}
+          source={require('../../assets/img/v.jpg')}
+        />
+      );
     default:
       return (
         <Image
@@ -216,19 +308,19 @@ const CarouselCards = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.CarouselCardsContainer}>
-          <Carousel
-            layout="tinder"
-            layoutCardOffset={9}
-            ref={isCarousel}
-            data={props.data}
-            renderItem={CarouselCardItem}
-            sliderWidth={SLIDER_WIDTH}
-            itemWidth={ITEM_WIDTH}
-            inactiveSlideShift={0}
-            onSnapToItem={(index) => setIndex(index)}
-            useScrollView={true}
-          />
-        </View>
+        <Carousel
+          layout="tinder"
+          layoutCardOffset={9}
+          ref={isCarousel}
+          data={props.data}
+          renderItem={CarouselCardItem}
+          sliderWidth={SLIDER_WIDTH}
+          itemWidth={ITEM_WIDTH}
+          inactiveSlideShift={0}
+          onSnapToItem={(index) => setIndex(index)}
+          useScrollView={true}
+        />
+      </View>
       <View>
         <Pagination
           dotsLength={props.data.length}
@@ -247,7 +339,6 @@ const CarouselCards = (props) => {
           tappableDots={true}
         />
       </View>
-
     </View>
   );
 };
@@ -273,8 +364,8 @@ const styles = StyleSheet.create({
     // paddingTop: 10,
     height: '80%',
   },
-  pagination:{
-    backgroundColor: '#8d5524'
+  pagination: {
+    backgroundColor: '#8d5524',
   },
 });
 
