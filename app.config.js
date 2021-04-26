@@ -31,4 +31,5 @@ export default {
       favicon: './assets/favicon.png',
     },
   },
+  assets: ['fonts'],
 };

@@ -6,6 +6,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import * as Updates from 'expo-updates';
 import { Animated, StyleSheet, View } from 'react-native';
 import React from 'react';
+import { useFonts } from 'expo-font';
 
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppearanceProvider } from 'react-native-appearance';
@@ -15,6 +16,27 @@ import Main from './src/Main';
 SplashScreen.preventAutoHideAsync().catch(() => {
   /* reloading the app might trigger some race conditions, ignore them */
 });
+
+const customFonts = {
+  'Montserrat-BlackItalic': require('./assets/fonts/Montserrat-BlackItalic.ttf'),
+  'Montserrat-Black': require('./assets/fonts/Montserrat-Black.ttf'),
+  'Montserrat-BoldItalic': require('./assets/fonts/Montserrat-BoldItalic.ttf'),
+  'Montserrat-Bold': require('./assets/fonts/Montserrat-Bold.ttf'),
+  'Montserrat-ExtraBoldItalic': require('./assets/fonts/Montserrat-ExtraBoldItalic.ttf'),
+  'Montserrat-ExtraBold': require('./assets/fonts/Montserrat-ExtraBold.ttf'),
+  'Montserrat-ExtraLightItalic': require('./assets/fonts/Montserrat-ExtraLightItalic.ttf'),
+  'Montserrat-ExtraLight': require('./assets/fonts/Montserrat-ExtraLight.ttf'),
+  'Montserrat-Italic': require('./assets/fonts/Montserrat-Italic.ttf'),
+  'Montserrat-LightItalic': require('./assets/fonts/Montserrat-LightItalic.ttf'),
+  'Montserrat-Light': require('./assets/fonts/Montserrat-Light.ttf'),
+  'Montserrat-MediumItalic': require('./assets/fonts/Montserrat-MediumItalic.ttf'),
+  'Montserrat-Medium': require('./assets/fonts/Montserrat-Medium.ttf'),
+  'Montserrat-Regular': require('./assets/fonts/Montserrat-Regular.ttf'),
+  'Montserrat-SemiBoldItalic': require('./assets/fonts/Montserrat-SemiBoldItalic.ttf'),
+  'Montserrat-SemiBold': require('./assets/fonts/Montserrat-SemiBold.ttf'),
+  'Montserrat-ThinItalic': require('./assets/fonts/Montserrat-ThinItalic.ttf'),
+  'Montserrat-Thin': require('./assets/fonts/Montserrat-Thin.ttf'),
+};
 
 export default function App() {
   return (
@@ -36,6 +58,7 @@ function MainScreen() {
 
 function AnimatedAppLoader({ children, image }) {
   const [isSplashReady, setSplashReady] = React.useState(false);
+  const [fontsLoaded] = useFonts(customFonts);
 
   const startAsync = React.useMemo(
     // If you use a local image with require(...), use `Asset.fromModule`
@@ -45,7 +68,7 @@ function AnimatedAppLoader({ children, image }) {
 
   const onFinish = React.useMemo(() => setSplashReady(true), []);
 
-  if (!isSplashReady) {
+  if (!isSplashReady && !fontsLoaded) {
     return (
       <AppLoading
         // Instruct SplashScreen not to hide yet, we want to do this manually

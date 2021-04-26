@@ -39,7 +39,7 @@ const DrawerContent = ({ navigation, ...props }) => {
           </View>
         </Drawer.Section>
         <Drawer.Section style={styles.drawerSection}>
-          <DrawerItem
+          <Drawer.Item
             icon={({ color, size }) => (
               <MaterialCommunityIcons
                 name="home-outline"
@@ -52,7 +52,20 @@ const DrawerContent = ({ navigation, ...props }) => {
               navigation.navigate('home');
             }}
           />
-          <DrawerItem
+          <Drawer.Item
+            icon={({ color, size }) => (
+              <MaterialCommunityIcons
+                name="comment-question-outline"
+                color={color}
+                size={size}
+              />
+            )}
+            label="FAQ"
+            onPress={() => {
+              navigation.navigate('faq');
+            }}
+          />
+          <Drawer.Item
             icon={({ color, size }) => (
               <MaterialCommunityIcons
                 name="email-outline"
@@ -71,7 +84,7 @@ const DrawerContent = ({ navigation, ...props }) => {
               }
             }}
           />
-          <DrawerItem
+          <Drawer.Item
             icon={({ color, size }) => (
               <MaterialCommunityIcons
                 name="bug-outline"
@@ -84,7 +97,7 @@ const DrawerContent = ({ navigation, ...props }) => {
               navigation.navigate('report');
             }}
           />
-          <DrawerItem
+          <Drawer.Item
             icon={({ color, size }) => (
               <MaterialCommunityIcons
                 name="account-outline"
@@ -99,17 +112,10 @@ const DrawerContent = ({ navigation, ...props }) => {
           />
         </Drawer.Section>
         <Drawer.Section title="Preferences">
-          <TouchableRipple onPress={() => {}}>
-            <View style={styles.preference}>
-              <Text>Dark Theme</Text>
-              <View>
-                <Switch
-                  value={isThemeDark}
-                  onValueChange={toggleTheme}
-                />
-              </View>
-            </View>
-          </TouchableRipple>
+          <View style={styles.preference}>
+            <Drawer.Item label="Dark Theme" />
+            <Switch value={isThemeDark} onValueChange={toggleTheme} />
+          </View>
         </Drawer.Section>
       </View>
     </DrawerContentScrollView>
@@ -131,8 +137,7 @@ const styles = StyleSheet.create({
   preference: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    paddingRight: 16,
   },
 });
 

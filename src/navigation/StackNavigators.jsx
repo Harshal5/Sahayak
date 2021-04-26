@@ -10,6 +10,7 @@ import ContactScreen from '../screens/ReportScreen';
 import QuizGestureRecognitionScreen from '../screens/QuizGestureRecognitionScreen';
 import AboutUsScreen from '../screens/AboutUsScreen';
 import OnBoardingScreen from '../screens/OnBoardingScreen';
+import FaqScreen from '../screens/FaqScreen';
 import Appbar from '../components/Appbar';
 
 const GestureRecognitionStack = createStackNavigator();
@@ -17,6 +18,7 @@ const TextToGestureStack = createStackNavigator();
 const QuizStack = createStackNavigator();
 const ContactStack = createStackNavigator();
 const AboutStack = createStackNavigator();
+const FaqStack = createStackNavigator();
 const OnBoardingStack = createStackNavigator();
 
 // const defaultStackOptions = (theme, navigation) => ({
@@ -92,6 +94,12 @@ export const AboutStackScreen = () => (
   <AboutStack.Navigator screenOptions={defaultStackOptions}>
     <AboutStack.Screen name="About Us" component={AboutUsScreen} />
   </AboutStack.Navigator>
+);
+
+export const FaqStackScreen = () => (
+  <FaqStack.Navigator screenOptions={defaultStackOptions}>
+    <FaqStack.Screen name="FAQ" component={FaqScreen} />
+  </FaqStack.Navigator>
 );
 
 export const OnBoardingStackScreen = () => (

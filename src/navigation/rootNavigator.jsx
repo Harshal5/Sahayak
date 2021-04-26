@@ -6,6 +6,7 @@ import DrawerContent from '../components/DrawerContent';
 import {
   ReportStackScreen,
   AboutStackScreen,
+  FaqStackScreen,
 } from './StackNavigators';
 
 const Drawer = createDrawerNavigator();
@@ -17,6 +18,7 @@ const RootNavigator = () => (
     <Drawer.Screen name="home" component={HomeTabNavigator} />
     <Drawer.Screen name="report" component={ReportStackScreen} />
     <Drawer.Screen name="about" component={AboutStackScreen} />
+    <Drawer.Screen name="faq" component={FaqStackScreen} />
   </Drawer.Navigator>
 );
 

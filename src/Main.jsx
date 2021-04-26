@@ -5,11 +5,12 @@ import {
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native';
 import {
+  configureFonts,
   Provider as PaperProvider,
   DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTheme,
 } from 'react-native-paper';
-import { StatusBar } from 'expo-status-bar';
+
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useColorScheme } from 'react-native-appearance';
 import merge from 'deepmerge';
@@ -19,6 +20,62 @@ import RootNavigator from './navigation/rootNavigator';
 
 import OnBoardingScreen from './screens/OnBoardingScreen';
 
+const fontConfig = {
+  web: {
+    regular: {
+      fontFamily: 'Montserrat',
+      fontWeight: 'normal',
+    },
+    medium: {
+      fontFamily: 'Montserrat-Medium',
+      fontWeight: 'normal',
+    },
+    light: {
+      fontFamily: 'Montserrat-Light',
+      fontWeight: 'normal',
+    },
+    thin: {
+      fontFamily: 'Montserrat-Thin',
+      fontWeight: 'normal',
+    },
+  },
+  ios: {
+    regular: {
+      fontFamily: 'Montserrat',
+      fontWeight: 'normal',
+    },
+    medium: {
+      fontFamily: 'Montserrat-Medium',
+      fontWeight: 'normal',
+    },
+    light: {
+      fontFamily: 'Montserrat-Light',
+      fontWeight: 'normal',
+    },
+    thin: {
+      fontFamily: 'Montserrat-Thin',
+      fontWeight: 'normal',
+    },
+  },
+  android: {
+    regular: {
+      fontFamily: 'Montserrat-Regular',
+      fontWeight: 'normal',
+    },
+    medium: {
+      fontFamily: 'Montserrat-Medium',
+      fontWeight: 'normal',
+    },
+    light: {
+      fontFamily: 'Montserrat-Light',
+      fontWeight: 'normal',
+    },
+    thin: {
+      fontFamily: 'Montserrat-Thin',
+      fontWeight: 'normal',
+    },
+  },
+};
 const CombinedDefaultTheme = merge(
   PaperDefaultTheme,
   NavigationDefaultTheme,
@@ -37,6 +94,7 @@ const DefaultTheme = {
     surface: '#ffffff',
     text: '#172b4d',
   },
+  fonts: configureFonts(fontConfig),
 };
 
 const DarkTheme = {
@@ -50,6 +108,7 @@ const DarkTheme = {
     surface: '#1b222b',
     text: '#aba398',
   },
+  fonts: configureFonts(fontConfig),
 };
 
 const Main = () => {
