@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Appbar, IconButton, useTheme } from 'react-native-paper';
+import { View } from 'react-native';
+import { Appbar, useTheme } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 
@@ -17,7 +18,8 @@ const Header = (props) => {
       : scene.route.name;
 
   return (
-    <SafeAreaView>
+    // <SafeAreaView>
+    <View>
       <Appbar.Header>
         {previous ? (
           <Appbar.BackAction onPress={() => navigation.goBack()} />
@@ -37,7 +39,8 @@ const Header = (props) => {
           theme.dark ? theme.colors.surface : theme.colors.primary
         }
       />
-    </SafeAreaView>
+    </View>
+    // </SafeAreaView>
   );
 };
 
