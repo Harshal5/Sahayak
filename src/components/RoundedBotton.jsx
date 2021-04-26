@@ -8,7 +8,11 @@ const RoundedButton = ({ label, onPress }) => {
       onPress={onPress}
     >
       <Text
-        style={{ fontSize: 22, color: '#000', fontWeight: 'bold' }}
+        style={{
+          fontSize: 22,
+          color: '#000',
+          fontStyle: 'Montserrat-Bold',
+        }}
       >
         {label}
       </Text>
