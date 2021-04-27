@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import { Surface, List } from 'react-native-paper';
 import LottieView from 'lottie-react-native';
 
@@ -30,10 +30,10 @@ const faq = [
   },
 ];
 
-const FaqItem = ({ que, ans }) => (
+const FaqItem = ({ item }) => (
   <List.Item
-    title={`Q. ${que} ?`}
-    description={`Ans. ${ans}.`}
+    title={`Q. ${item.que} ?`}
+    description={`Ans. ${item.ans}.`}
     descriptionNumberOfLines={10}
   />
 );
@@ -50,9 +50,14 @@ const FaqScreen = () => (
         />
       </View>
     </View>
-    {faq.map(({ index, que, ans }) => (
+    <FlatList
+      data={faq}
+      renderItem={FaqItem}
+      keyExtractor={(item) => item.index}
+    />
+    {/* {faq.map(({ index, que, ans }) => (
       <FaqItem key={index} index={index} que={que} ans={ans} />
-    ))}
+    ))} */}
   </Surface>
 );
 
