@@ -127,10 +127,6 @@ def plots():
   plt.legend(['train', 'test'], loc='upper left')
   plt.show()
 
-@app.route("/")
-def hellowo():
-    return "<h1 style='color:blue'>Hello There!</h1>"
-
 @app.route("/api/test", methods=['GET'])
 def hello():
     return jsonify({'GET on homepage' : "Hello World"})
@@ -177,4 +173,4 @@ def bug():
     return jsonify(bug) 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', threaded=True, port=5000)
+    app.run(threaded=True, port=5000)
