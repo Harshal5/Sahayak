@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Button, Snackbar } from 'react-native-paper';
 import { Field, Formik } from 'formik';
 import * as Yup from 'yup';
 import LottieView from 'lottie-react-native';
@@ -9,6 +9,7 @@ import API from '../services/api';
 
 const TextToGestureScreen = () => {
   const initialValues = { subject: '', description: '' };
+  const [snackbar, setSnackbar] = useState('');
   const validationSchema = Yup.object({
     subject: Yup.string().required('Subject is required'),
     description: Yup.string(),
@@ -34,8 +35,10 @@ const TextToGestureScreen = () => {
           try {
             const res = await API.post('/bug', values);
             console.log(res);
+            setSnackbar('Report Submitted');
           } catch (error) {
             console.log(error);
+            setSnackbar('Error Submitting Report');
           }
         }}
       >
@@ -63,6 +66,18 @@ const TextToGestureScreen = () => {
           </View>
         )}
       </Formik>
+      <Snackbar
+        visible={snackbar !== ''}
+        onDismiss={() => setSnackbar('')}
+        action={{
+          label: 'Okay',
+          onPress: () => {
+            setSnackbar('');
+          },
+        }}
+      >
+        {snackbar}
+      </Snackbar>
     </View>
   );
 };
