@@ -85,16 +85,16 @@ const GestureRecognitionScreen = ({ route, navigation }) => {
       </Portal>
       <Camera predict={predict} />
       <Snackbar
-        visible={setSnackbar}
+        visible={snackbar}
         onDismiss={() => {
           setPrediction('');
-          navigation.goBack();
+          // navigation.goBack();
         }}
         action={{
           label: 'Okay',
           onPress: () => {
             setPrediction('');
-            navigation.goBack();
+            // navigation.goBack();
           },
         }}
       >

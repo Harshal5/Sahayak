@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     margin: 5,
-    width: 115,
+    width: 150,
   },
 });
 

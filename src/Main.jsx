@@ -106,7 +106,7 @@ const DarkTheme = {
     primary: '#62aaff',
     accent: '#0d235c',
     surface: '#1b222b',
-    text: '#aba398',
+    text: '#fff',
   },
   fonts: configureFonts(fontConfig),
 };
