@@ -89,12 +89,14 @@ const GestureRecognitionScreen = ({ route, navigation }) => {
         onDismiss={() => {
           setPrediction('');
           // navigation.goBack();
+          setSnackbar(false);
         }}
         action={{
           label: 'Okay',
           onPress: () => {
             setPrediction('');
             // navigation.goBack();
+            setSnackbar(false);
           },
         }}
       >

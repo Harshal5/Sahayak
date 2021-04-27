@@ -16,7 +16,7 @@ const TextToGestureScreen = () => {
   });
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <View style={{ alignItems: 'center', marginVertical: 10 }}>
         <View height={100} width={100}>
           <LottieView
