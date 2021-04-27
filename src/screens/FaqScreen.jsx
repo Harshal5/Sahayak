@@ -53,11 +53,8 @@ const FaqScreen = () => (
     <FlatList
       data={faq}
       renderItem={FaqItem}
-      keyExtractor={(item) => item.index}
+      keyExtractor={(item) => String(item.index)}
     />
-    {/* {faq.map(({ index, que, ans }) => (
-      <FaqItem key={index} index={index} que={que} ans={ans} />
-    ))} */}
   </Surface>
 );
 
