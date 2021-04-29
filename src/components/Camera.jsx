@@ -4,20 +4,17 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Platform,
-  Image,
 } from 'react-native';
 import { Camera } from 'expo-camera';
 import {
   TouchableRipple,
-  Button,
   ActivityIndicator,
   Provider,
 } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native';
 import FormData from 'form-data';
+
 import API from '../services/api';
-import CameraPreview from './CameraPreview';
 
 const styles = StyleSheet.create({
   container: {
@@ -57,9 +54,6 @@ const styles = StyleSheet.create({
 export default function CameraScreen({ predict }) {
   let camera;
   const [hasPermission, setHasPermission] = useState(null);
-  const [startCamera, setStartCamera] = React.useState(false);
-  const [previewVisible, setPreviewVisible] = React.useState(false);
-  const [capturedImage, setCapturedImage] = React.useState(null);
   const [loading, setLoading] = useState(false);
   const [cameraType, setCameraType] = React.useState(
     Camera.Constants.Type.back,
@@ -78,16 +72,14 @@ export default function CameraScreen({ predict }) {
     try {
       setLoading(true);
       const photo = await camera.takePictureAsync({ quality: 1 });
-      // console.log(await camera.getAvailablePictureSizesAsync('4:3'));
-      setCapturedImage(photo);
-      console.log(photo);
+      // console.log(photo);
       const localUri = photo.uri;
       const filename = localUri.split('/').pop();
 
-      let match = /\.(\w+)$/.exec(filename);
-      let type = match ? `image/${match[1]}` : `image`;
+      const match = /\.(\w+)$/.exec(filename);
+      const type = match ? `image/${match[1]}` : `image`;
 
-      let formData = new FormData();
+      const formData = new FormData();
       formData.append('file', {
         uri: localUri,
         name: filename,
@@ -96,13 +88,13 @@ export default function CameraScreen({ predict }) {
       const res = await API.post('/predict', formData, {
         'content-type': 'multipart/form-data',
       });
-      console.log(res.data);
+      // console.log(res.data);
       setLoading(false);
       predict(res.data.prediction);
     } catch (error) {
       setLoading(false);
       predict(null);
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -124,49 +116,45 @@ export default function CameraScreen({ predict }) {
 
   return (
     <Provider style={styles.container}>
-      {previewVisible && capturedImage ? (
-        <CameraPreview photo={capturedImage} />
-      ) : (
-        <Camera
-          style={styles.camera}
-          type={cameraType}
-          ref={(r) => {
-            camera = r;
-          }}
-        >
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={flipCamera}
-              disabled={loading}
-            >
-              <Text style={styles.text}>Flip</Text>
-            </TouchableOpacity>
-            <TouchableRipple
-              style={{
-                width: 70,
-                height: 70,
-                right: -100,
-                top: 530,
-                borderRadius: 50,
-                backgroundColor: '#fff',
-                overflow: 'hidden',
-              }}
-              centered
-              rippleColor="rgba(0, 0, 0, .32)"
-              onPress={takePicture}
-              disabled={loading}
-            >
-              <Text> </Text>
-            </TouchableRipple>
+      <Camera
+        style={styles.camera}
+        type={cameraType}
+        ref={(r) => {
+          camera = r;
+        }}
+      >
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={flipCamera}
+            disabled={loading}
+          >
+            <Text style={styles.text}>Flip</Text>
+          </TouchableOpacity>
+          <TouchableRipple
+            style={{
+              width: 70,
+              height: 70,
+              right: -100,
+              top: 530,
+              borderRadius: 50,
+              backgroundColor: '#fff',
+              overflow: 'hidden',
+            }}
+            centered
+            rippleColor="rgba(0, 0, 0, .32)"
+            onPress={takePicture}
+            disabled={loading}
+          >
+            <Text> </Text>
+          </TouchableRipple>
+        </View>
+        {loading && (
+          <View style={styles.loading}>
+            <ActivityIndicator size="large" animating />
           </View>
-          {loading && (
-            <View style={styles.loading}>
-              <ActivityIndicator size="large" animating />
-            </View>
-          )}
-        </Camera>
-      )}
+        )}
+      </Camera>
     </Provider>
   );
 }

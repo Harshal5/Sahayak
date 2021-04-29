@@ -16,10 +16,7 @@ const QuizScreen = (props) => {
   const letters = 'abcdefghijklmnopqrstuvwxyz0123456789';
   const [visible, setVisible] = React.useState(true);
   const { colors } = useTheme();
-  // const [letter, setLetter] = React.useState(
-  //   letters.charAt(Math.random() * letters.length),
-  // );
-  const [letter, setLetter] = React.useState('a');
+  const [letter, setLetter] = React.useState('j');
 
   const hideModal = () => setVisible(false);
   const numerics = '0123456789';
@@ -36,7 +33,6 @@ const QuizScreen = (props) => {
             ...styles.containerStyle,
             backgroundColor: colors.card,
           }}
-          style={styles.modal}
         >
           <Headline>Welcome To Quiz</Headline>
           <View height={150} width={150}>
@@ -97,16 +93,10 @@ const QuizScreen = (props) => {
 
 const styles = StyleSheet.create({
   containerStyle: {
-    // backgroundColor: 'white',
     padding: 20,
     margin: 10,
     borderRadius: 10,
     alignItems: 'center',
-  },
-  modal: {
-    // flex: 1,
-    // padding: 20,
-    // borderRadius: 15,
   },
   quiz: {
     flex: 1,

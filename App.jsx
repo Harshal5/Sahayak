@@ -3,18 +3,15 @@ import AppLoading from 'expo-app-loading';
 import { Asset } from 'expo-asset';
 import Constants from 'expo-constants';
 import * as SplashScreen from 'expo-splash-screen';
-import * as Updates from 'expo-updates';
 import { Animated, StyleSheet, View } from 'react-native';
 import React from 'react';
 import { useFonts } from 'expo-font';
-
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppearanceProvider } from 'react-native-appearance';
 
 import Main from './src/Main';
 
 SplashScreen.preventAutoHideAsync().catch(() => {
-  /* reloading the app might trigger some race conditions, ignore them */
+  // reloading the app might trigger some race conditions, ignore them.
 });
 
 const customFonts = {
@@ -34,11 +31,9 @@ export default function App() {
 
 function MainScreen() {
   return (
-    <SafeAreaProvider>
-      <AppearanceProvider>
-        <Main />
-      </AppearanceProvider>
-    </SafeAreaProvider>
+    <AppearanceProvider>
+      <Main />
+    </AppearanceProvider>
   );
 }
 
@@ -47,7 +42,6 @@ function AnimatedAppLoader({ children, image }) {
   const [fontsLoaded] = useFonts(customFonts);
 
   const startAsync = React.useMemo(
-    // If you use a local image with require(...), use `Asset.fromModule`
     () => () => Asset.fromModule(image).downloadAsync(),
     [image],
   );
@@ -57,7 +51,6 @@ function AnimatedAppLoader({ children, image }) {
   if (!isSplashReady && !fontsLoaded) {
     return (
       <AppLoading
-        // Instruct SplashScreen not to hide yet, we want to do this manually
         autoHideSplash={false}
         startAsync={startAsync}
         onError={console.error}
@@ -94,10 +87,9 @@ function AnimatedSplashScreen({ children, image }) {
   const onImageLoaded = React.useMemo(() => async () => {
     try {
       await SplashScreen.hideAsync();
-      // Load stuff
       await Promise.all([]);
     } catch (e) {
-      // handle errors
+      console.log(e);
     } finally {
       setAppReady(true);
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button, Divider, Provider, Surface } from 'react-native-paper';
+import { Button, Divider } from 'react-native-paper';
 import { Formik, Field } from 'formik';
 import * as Yup from 'yup';
 
@@ -24,28 +24,22 @@ function TextToGestureScreen() {
 
   return (
     <View style={styles.container}>
-      
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values) => {
-          // console.log('values:', values.text);
-          // let str = values.text.toLowerCase();
           setText(values.text.toLowerCase());
           setShowImages(true);
         }}
       >
         {({ handleSubmit }) => (
           <View style={styles.form}>
-            
             <Field
               name="text"
               label="Text"
               component={FormTextInput}
-              //   style={styles.TextInput}
             />
             <Button
-              //   style={styles.btn}
               icon="send"
               mode="contained"
               onPress={handleSubmit}
@@ -57,22 +51,18 @@ function TextToGestureScreen() {
       </Formik>
       <Divider style={styles.divider} />
       {showImages && (
-        <View style={styles.cardContainer}> 
-          {/* <Surface style={styles.surface}> */}
-            <StringImages text={text} />
-          {/* </Surface> */}
+        <View style={styles.cardContainer}>
+          <StringImages text={text} />
         </View>
       )}
-      
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  StringImages: {
-  },
-  form:{
-    margin: 10, 
+  StringImages: {},
+  form: {
+    margin: 10,
     padding: 5,
   },
   container: {
@@ -84,14 +74,11 @@ const styles = StyleSheet.create({
     elevation: 4,
     height: '100%',
   },
-  TextInput: {
-  },
-  divider: {
-  },
-  cardContainer:{
+  TextInput: {},
+  divider: {},
+  cardContainer: {
     flex: 1,
-    // backgroundColor: '#8d5524',
-  } ,
+  },
 });
 
 export default TextToGestureScreen;

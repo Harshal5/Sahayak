@@ -1,13 +1,13 @@
 import React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useTheme } from 'react-native-paper';
 
 import {
   QuizStackScreen,
   GestureRecognitionStackScreen,
   TextToGestureStackScreen,
 } from './StackNavigators';
-import { useTheme } from '@react-navigation/native';
 
 const HomeTab = createMaterialBottomTabNavigator();
 

@@ -2,12 +2,10 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Appbar, useTheme } from 'react-native-paper';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 
 const Header = (props) => {
   const theme = useTheme();
-  console.log(props);
   const { scene, previous, navigation } = props;
   const { options } = scene.descriptor;
   const title =
@@ -18,7 +16,6 @@ const Header = (props) => {
       : scene.route.name;
 
   return (
-    // <SafeAreaView>
     <View>
       <Appbar.Header>
         {previous ? (
@@ -40,7 +37,6 @@ const Header = (props) => {
         }
       />
     </View>
-    // </SafeAreaView>
   );
 };
 

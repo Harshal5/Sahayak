@@ -12,7 +12,6 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 const AboutUsScreen = () => {
   const { colors } = useTheme();
   const loadInBrowser = () => {
-    // console.log('SDi');
     Linking.openURL('https://gitlab.com/kanhaiya38/sahayak/');
   };
 
@@ -59,7 +58,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     elevation: 4,
     overflow: 'hidden',
-    // backgroundColor: '#fff',
     paddingTop: 25,
     paddingBottom: 100,
   },

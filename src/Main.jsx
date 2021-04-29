@@ -10,14 +10,12 @@ import {
   DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTheme,
 } from 'react-native-paper';
-
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useColorScheme } from 'react-native-appearance';
 import merge from 'deepmerge';
 
 import PreferencesContext from './context/PreferencesContext';
 import RootNavigator from './navigation/rootNavigator';
-
 import OnBoardingScreen from './screens/OnBoardingScreen';
 
 const fontConfig = {
@@ -89,7 +87,6 @@ const DefaultTheme = {
     ...CombinedDefaultTheme.colors,
     background: '#f4f5f7',
     primary: '#5664d2',
-    // card: ''
     accent: '#5961a3',
     surface: '#ffffff',
     text: '#172b4d',

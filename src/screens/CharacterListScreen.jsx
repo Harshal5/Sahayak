@@ -2,7 +2,6 @@ import React from 'react';
 import {
   View,
   Text,
-  Image,
   StyleSheet,
   FlatList,
   TouchableOpacity,
@@ -57,12 +56,12 @@ const TutorialMode = ({ navigation }) => {
       ToastAndroid.SHORT,
     );
     navigation.navigate('CharacterCard', {
-      character: character,
+      character,
     });
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.text}>Tutorial Mode</Text>
       <Text>Select Character</Text>
 
@@ -81,16 +80,10 @@ const TutorialMode = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // alignItems: 'center',
-    // justifyContent: 'center'
-  },
   listItem: {
     padding: 15,
     backgroundColor: '#F8F8F8F8',
     borderBottomWidth: 1,
-    // borderColor: '#EEE'
   },
   listItemView: {
     flexDirection: 'row',

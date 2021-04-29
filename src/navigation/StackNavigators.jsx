@@ -21,28 +21,6 @@ const AboutStack = createStackNavigator();
 const FaqStack = createStackNavigator();
 const OnBoardingStack = createStackNavigator();
 
-// const defaultStackOptions = (theme, navigation) => ({
-//   headerStyle: {
-//     backgroundColor: theme.dark
-//       ? theme.colors.card
-//       : theme.colors.primary,
-//   },
-//   headerTintColor: theme.dark
-//     ? theme.colors.text
-//     : theme.colors.background,
-//   headerLeft: () => (
-//     <IconButton
-//       onPress={() => navigation.openDrawer()}
-//       color={theme.dark ? theme.colors.text : theme.colors.background}
-//       icon="menu"
-//     />
-//   ),
-//   transitionSpec: {
-//     open: { animation: 'spring' },
-//     close: { animation: 'spring' },
-//   },
-// });
-
 const defaultStackOptions = {
   header: (props) => <Appbar {...props} />,
   transitionSpec: {
